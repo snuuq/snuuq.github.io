@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { bannerPlaceholder, topicPlaceholder } from "../../lib/placeholders";
+
+const topics = (await getCollection("researchTopics")).sort((a, b) => a.data.order - b.data.order);
+const bandClasses = ["is-blue", "is-green", "is-cream"];
+const topicAccents = ["#d8edf8", "#d9efcf", "#f0ead1", "#d8edf8", "#d9efcf"];
+---
+
+<BaseLayout title="Research" currentPath="/research/">
+  <PageHero title="Research" image={bannerPlaceholder("research")} titleClass="hero-research" />
+
+  <section class="research-intro">
+    <div class="overview-wrap">
+      <h2 class="section-title">Overview</h2>
+      <div class="plain-copy">
+        <p class="lead-paragraph">
+          Research at the Uncertainty Quantification Lab covers a broad range of topics on statistical machine learning,
+          uncertainty-aware prediction, and scientific modeling.
+        </p>
+        <p>
+          Our lab develops statistically principled methods for complex mathematical models, deep neural networks, and
+          large-scale scientific data. The work spans conformal prediction, Bayesian inference, tabular foundation
+          models, and physics-informed learning, with applications to climate science, disease forecasting, and
+          biomedical research.
+        </p>
+        <p>
+          For prospective students, this page provides an overview of ongoing research directions. Topic-wise details and
+          representative outputs are listed below in each section.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {topics.map((topic, index) => (
+    <section class={`research-band ${bandClasses[index % bandClasses.length]}`}>
+      <div class="research-band-inner">
+        <h2 class="research-band-title">{topic.data.title}</h2>
+        <div class={`research-band-grid ${index % 2 === 1 ? "is-reversed" : ""}`}>
+          <div class="rich-copy">
+            <p>{topic.body}</p>
+            <p>
+              This track combines methodological development with practical deployment settings, focusing on reliable
+              inference, scalable learning, and scientifically useful uncertainty estimates.
+            </p>
+
+            <h3 class="research-sublist-title">Recent themes</h3>
+            <ul>
+              {topic.data.highlights.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="research-band-media">
+            <img src={topicPlaceholder(topic.data.title, topicAccents[index % topicAccents.length])} alt={topic.data.title} />
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+</BaseLayout>

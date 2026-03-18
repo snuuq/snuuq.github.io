@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PageHero from "../../../components/PageHero.astro";
+import GiscusComments from "../../../components/GiscusComments.astro";
+import { bannerPlaceholder } from "../../../lib/placeholders";
+
+export async function getStaticPaths() {
+  const sessions = await getCollection("seminarSessions");
+  return sessions.map((entry) => ({
+    params: {
+      series: entry.data.series,
+      session: entry.slug
+    },
+    props: {
+      sessionEntry: entry
+    }
+  }));
+}
+
+const { sessionEntry } = Astro.props;
+const seriesCollection = await getCollection("seminarSeries");
+const seriesEntry = seriesCollection.find((item) => item.slug === sessionEntry.data.series);
+---
+
+<BaseLayout title={sessionEntry.data.title} currentPath="/seminars/">
+  <PageHero title={sessionEntry.data.title} image={bannerPlaceholder("seminars")} titleClass="hero-seminars" />
+
+  <section class="section">
+    <div class="seminar-detail">
+      <h2 class="section-title">Overview</h2>
+      <p class="center-note">
+        <span class="inline-meta">
+          <span>{sessionEntry.data.speaker}</span>
+          <span>{sessionEntry.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}</span>
+          <span>{seriesEntry?.data.title ?? sessionEntry.data.series}</span>
+          {sessionEntry.data.week && <span>{sessionEntry.data.week}</span>}
+        </span>
+      </p>
+      <div class="plain-copy">
+        <p>{sessionEntry.body}</p>
+      </div>
+      <div class="button-row">
+        <a class="text-button" href={sessionEntry.data.materials}>Presentation Materials</a>
+        {seriesEntry && <a class="text-button" href={`/seminars/${seriesEntry.slug}/`}>Back to Series</a>}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="seminar-detail">
+      <GiscusComments term={sessionEntry.slug} />
+    </div>
+  </section>
+</BaseLayout>

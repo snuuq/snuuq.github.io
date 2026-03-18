@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { bannerPlaceholder } from "../../lib/placeholders";
+
+const allPublications = await getCollection("publications");
+
+const typeOrder = ["Conference", "Journal", "Workshop", "Demo", "ArXiv Preprint"] as const;
+
+const typeLabels: Record<(typeof typeOrder)[number], string> = {
+  Conference: "Conferences",
+  Journal: "Journals",
+  Workshop: "Workshops",
+  Demo: "Demos",
+  "ArXiv Preprint": "ArXiv Preprints"
+};
+
+const groupedPublications = typeOrder
+  .map((type) => ({
+    type,
+    label: typeLabels[type],
+    items: allPublications
+      .filter((item) => item.data.type === type)
+      .sort((a, b) =>
+        b.data.year === a.data.year ? a.data.title.localeCompare(b.data.title) : b.data.year - a.data.year
+      )
+  }))
+  .filter((group) => group.items.length > 0);
+---
+
+<BaseLayout title="Publications" currentPath="/publications/">
+  <PageHero title="Publications" image={bannerPlaceholder("publications")} titleClass="hero-publications" />
+
+  {groupedPublications.map((group) => (
+    <section class="section">
+      <h2 class="section-title">{group.label}</h2>
+
+      <div class="publication-ordered">
+        <ol>
+          {group.items.map((item) => (
+            <li>
+              {item.data.authors}. <span class="publication-title-inline">{item.data.title}</span>, <em>{item.data.venue}</em>, {item.data.year}.
+              <span class="publication-links-inline">
+                {item.data.links.map((link) => (
+                  <a href={link.url}>[{link.label.toLowerCase()}]</a>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  ))}
+</BaseLayout>

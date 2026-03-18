@@ -1,0 +1,18 @@
+---
+interface Props {
+  title: string;
+  image: string;
+  titleClass?: string;
+  centered?: boolean;
+  overlayText?: string;
+}
+
+const { title, image, titleClass = "", centered = false, overlayText } = Astro.props;
+---
+
+<section class={`page-hero ${centered ? "is-home" : ""}`}>
+  <img class="page-hero-image" src={image} alt={`${title} hero`} />
+  <div class={`page-hero-copy ${centered ? "is-centered" : ""}`}>
+    <h1 class={titleClass}>{overlayText ?? title}</h1>
+  </div>
+</section>

@@ -1,0 +1,90 @@
+---
+import { siteConfig } from "../config/site";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentPath?: string;
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  currentPath = Astro.url.pathname
+} = Astro.props;
+
+const pageTitle = title === siteConfig.title ? title : `${title} | ${siteConfig.title}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="header-inner">
+          <a class="brand" href="/">
+            <span class="brand-title">{siteConfig.title}</span>
+            <span class="brand-subtitle">{siteConfig.institution}</span>
+          </a>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="Toggle navigation"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <nav class="nav" id="site-nav">
+            {siteConfig.nav.map((item) => (
+              <a class={currentPath.startsWith(item.href) && item.href !== "/" ? "is-active" : currentPath === item.href ? "is-active" : ""} href={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-mark">SNU</div>
+          <div class="footer-copy">
+            <p>Bldg 25-321, 1 Gwanak-ro, Gwanak-gu, Seoul 08826, Korea.</p>
+            <p>Copyright (c) 2026, {siteConfig.title}, {siteConfig.institution}, All Rights Reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script is:inline>
+      const toggle = document.querySelector(".nav-toggle");
+      const nav = document.querySelector("#site-nav");
+
+      if (toggle && nav) {
+        toggle.addEventListener("click", () => {
+          const expanded = toggle.getAttribute("aria-expanded") === "true";
+          toggle.setAttribute("aria-expanded", String(!expanded));
+          document.body.classList.toggle("nav-open", !expanded);
+        });
+
+        nav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            toggle.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("nav-open");
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

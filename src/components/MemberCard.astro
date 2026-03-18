@@ -1,0 +1,25 @@
+---
+import { avatarPlaceholder } from "../lib/placeholders";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  member: CollectionEntry<"members">;
+}
+
+const { member } = Astro.props;
+---
+
+<article class="member-card">
+  <div class="avatar">
+    <img src={avatarPlaceholder(member.data.nameEn)} alt={member.data.photoAlt ?? `Placeholder profile image for ${member.data.nameEn}`} />
+  </div>
+  <h3>{member.data.nameEn}</h3>
+  <p class="muted">{member.data.nameKo} · {member.data.title}</p>
+  <div class="member-copy">
+    <slot />
+  </div>
+  <ul class="member-meta">
+    <li>Joined {member.data.joined}</li>
+    {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
+  </ul>
+</article>

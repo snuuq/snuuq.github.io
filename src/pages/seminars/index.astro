@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { bannerPlaceholder } from "../../lib/placeholders";
+
+const series = await getCollection("seminarSeries");
+const journalClub = series.find((item) => item.slug === "journal-club");
+const seasonal = series.filter((item) => item.slug !== "journal-club");
+---
+
+<BaseLayout title="Seminars" currentPath="/seminars/">
+  <PageHero title="Seminars" image={bannerPlaceholder("seminars")} titleClass="hero-seminars" />
+
+  <section class="section">
+    <div class="content-narrow center-note">
+      During semesters we run a cumulative Journal Club. During breaks we organize focused seasonal seminars such as
+      book seminars and topical reading seminars.
+    </div>
+
+    {journalClub && (
+      <>
+        <h2 class="section-title">Journal Club</h2>
+        <div class="seminar-series-list">
+          <article class="seminar-series-card">
+            <h3>{journalClub.data.title}</h3>
+            <p class="inline-meta"><span>{journalClub.data.period}</span></p>
+            <p>{journalClub.body}</p>
+            <a class="text-button" href={`/seminars/${journalClub.slug}/`}>Open Journal Club</a>
+          </article>
+        </div>
+      </>
+    )}
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Seasonal Seminars</h2>
+    <div class="seminar-series-list">
+      {seasonal.map((item) => (
+        <article class="seminar-series-card">
+          <h3>{item.data.title}</h3>
+          <p class="inline-meta"><span>{item.data.period}</span></p>
+          <p>{item.body}</p>
+          <a class="text-button" href={`/seminars/${item.slug}/`}>View Series</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

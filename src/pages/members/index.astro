@@ -1,0 +1,199 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import MemberLinks from "../../components/MemberLinks.astro";
+import { avatarPlaceholder, bannerPlaceholder } from "../../lib/placeholders";
+
+const allMembers = await getCollection("members");
+
+const parseJoined = (value: string) => {
+  const [year, month = "01"] = value.split(".");
+  return Number(year) * 100 + Number(month);
+};
+
+const sortStudents = (members) =>
+  [...members].sort((a, b) => {
+    const joinedDiff = parseJoined(a.data.joined) - parseJoined(b.data.joined);
+    if (joinedDiff !== 0) return joinedDiff;
+    return a.data.nameEn.localeCompare(b.data.nameEn);
+  });
+
+const faculty = allMembers.filter((member) => member.data.role === "professor");
+const postdocs = allMembers.filter((member) => member.data.role === "postdoc");
+const phdStudents = sortStudents(allMembers.filter((member) => member.data.role === "phd"));
+const msStudents = sortStudents(allMembers.filter((member) => member.data.role === "ms"));
+const interns = sortStudents(allMembers.filter((member) => member.data.role === "intern"));
+const alumni = allMembers.filter((member) => member.data.role === "alumni");
+---
+
+<BaseLayout title="Members" currentPath="/members/">
+  <PageHero title="Members" image={bannerPlaceholder("members")} titleClass="hero-members" />
+
+  {faculty.length > 0 && (
+    <section class="members-section">
+      <h2 class="member-role-title">Faculty</h2>
+      <div class="faculty-list">
+        {faculty.map((member) => (
+          <article class="faculty-member">
+            <div class="member-photo">
+              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#cdd9c1")} alt={member.data.photoAlt ?? member.data.nameEn} />
+            </div>
+            <div class="member-bio">
+              <div class="member-heading">
+                <h3 class="member-name">{member.data.nameEn}</h3>
+                <MemberLinks links={member.data.links} />
+              </div>
+              <div class="member-title-line">
+                <strong>{member.data.title}</strong>, Seoul National University (since {member.data.joined})
+              </div>
+              <ul>
+                <li>{member.body}</li>
+                <li>{member.data.emailMasked}</li>
+                <li>Affiliation: Department of Statistics, Seoul National University</li>
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {postdocs.length > 0 && (
+    <section class="members-section">
+      <h2 class="member-role-title">Postdoc Fellows</h2>
+      <div class="postdoc-list">
+        {postdocs.map((member) => (
+          <article class="postdoc-member">
+            <div class="member-photo">
+              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#d7e0ea")} alt={member.data.photoAlt ?? member.data.nameEn} />
+            </div>
+            <div class="member-bio">
+              <div class="member-heading">
+                <h3 class="member-name">{member.data.nameEn}</h3>
+                <MemberLinks links={member.data.links} />
+              </div>
+              <div class="member-title-line">
+                <strong>{member.data.title}</strong>, Department of Statistics, Seoul National University (since {member.data.joined})
+              </div>
+              <ul>
+                <li>{member.body}</li>
+                {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {phdStudents.length > 0 && (
+    <section class="members-section">
+      <h2 class="member-role-title">Ph.D. Students</h2>
+      <div class="member-grid-section">
+        {phdStudents.map((member) => (
+          <article class="member-grid-card">
+            <div class="member-photo">
+              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#d6dfeb")} alt={member.data.photoAlt ?? member.data.nameEn} />
+            </div>
+            <div>
+              <div class="member-heading">
+                <h3 class="member-name">{member.data.nameEn}</h3>
+                <MemberLinks links={member.data.links} />
+              </div>
+              <div class="member-title-line">
+                <strong>{member.data.title}</strong> (since {member.data.joined})
+              </div>
+              <ul>
+                <li>{member.body}</li>
+                {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {msStudents.length > 0 && (
+    <section class="members-section">
+      <h2 class="member-role-title">Master Students</h2>
+      <div class="member-grid-section">
+        {msStudents.map((member) => (
+          <article class="member-grid-card">
+            <div class="member-photo">
+              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#eadfdf")} alt={member.data.photoAlt ?? member.data.nameEn} />
+            </div>
+            <div>
+              <div class="member-heading">
+                <h3 class="member-name">{member.data.nameEn}</h3>
+                <MemberLinks links={member.data.links} />
+              </div>
+              <div class="member-title-line">
+                <strong>{member.data.title}</strong> (since {member.data.joined})
+              </div>
+              <ul>
+                <li>{member.body}</li>
+                {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {interns.length > 0 && (
+    <section class="members-section">
+      <h2 class="member-role-title">Interns</h2>
+      <div class="member-grid-section">
+        {interns.map((member) => (
+          <article class="member-grid-card">
+            <div class="member-photo">
+              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#e9e3d6")} alt={member.data.photoAlt ?? member.data.nameEn} />
+            </div>
+            <div>
+              <div class="member-heading">
+                <h3 class="member-name">{member.data.nameEn}</h3>
+                <MemberLinks links={member.data.links} />
+              </div>
+              <div class="member-title-line">
+                <strong>{member.data.title}</strong> (since {member.data.joined})
+              </div>
+              <ul>
+                <li>{member.body}</li>
+                {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {alumni.length > 0 && (
+    <section class="members-section">
+      <h2 class="member-role-title">Permanent Members</h2>
+      <div class="alumni-grid">
+        {alumni.map((member) => (
+          <article class="alumni-card">
+            <div class="member-photo">
+              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#dee1e5")} alt={member.data.photoAlt ?? member.data.nameEn} />
+            </div>
+            <div>
+              <div class="member-heading">
+                <h3 class="member-name">{member.data.nameEn}</h3>
+                <MemberLinks links={member.data.links} />
+              </div>
+              <div class="member-title-line"><strong>{member.data.title} (since {member.data.joined})</strong></div>
+              <div class="plain-copy">
+                <p>{member.body}</p>
+                {member.data.emailMasked && <p>{member.data.emailMasked}</p>}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>

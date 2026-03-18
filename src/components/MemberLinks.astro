@@ -1,0 +1,25 @@
+---
+interface Props {
+  links?: {
+    homepage?: string;
+    linkedin?: string;
+  };
+}
+
+const { links } = Astro.props;
+---
+
+{links && (links.homepage || links.linkedin) && (
+  <span class="member-links" aria-label="Member links">
+    {links.homepage && (
+      <a class="member-link-button" href={links.homepage} aria-label="Homepage" target="_blank" rel="noreferrer">
+        <span aria-hidden="true">⌂</span>
+      </a>
+    )}
+    {links.linkedin && (
+      <a class="member-link-button is-linkedin" href={links.linkedin} aria-label="LinkedIn" target="_blank" rel="noreferrer">
+        <span aria-hidden="true">in</span>
+      </a>
+    )}
+  </span>
+)}
