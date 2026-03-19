@@ -54,6 +54,7 @@ const publications = defineCollection({
     title: z.string(),
     year: z.number(),
     yearLabel: z.string().optional(),
+    sortId: z.number().optional(),
     type: z.enum(["Conference", "Journal", "Workshop", "Demo", "ArXiv Preprint", "Book Chapter", "Submitted"]),
     authors: z.string(),
     venue: z.string(),
@@ -106,7 +107,8 @@ const gallery = defineCollection({
     title: z.string(),
     date: z.date().optional(),
     image: z.string().optional(),
-    imageAlt: z.string().optional()
+    imageAlt: z.string().optional(),
+    highlight: z.boolean().optional().default(false)
   })
 });
 

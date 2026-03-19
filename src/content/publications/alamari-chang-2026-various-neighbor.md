@@ -2,6 +2,7 @@
 title: Various-Neighbor Neural Network Emulator for Computer Models with Large Spatial Output
 year: 2026
 yearLabel: 2026+
+sortId: 11
 type: Journal
 authors: Mohammed B. Alamari, Won Chang
 venue: accepted for publication in Journal of Agricultural, Biological and Environmental Statistics

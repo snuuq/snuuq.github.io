@@ -1,6 +1,7 @@
 ---
 title: The joint local dependence Cholesky prior for bandwidth selection across multiple groups
 year: 2025
+sortId: 5
 type: Journal
 authors: K. Lee, Won Chang, X. Cao
 venue: Bayesian Analysis, 20 (4), 1539-1558

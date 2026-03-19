@@ -1,6 +1,7 @@
 ---
 title: Physics-driven dynamic interpolation with application to pollution satellite images
 year: 2025
+sortId: 6
 type: Journal
 authors: Won Chang, Youngdeok Hwang, Hang J. Kim
 venue: Spatial Statistics, 69, 100923

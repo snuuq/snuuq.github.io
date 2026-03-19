@@ -1,18 +1,47 @@
 ---
 interface Props {
   title: string;
-  image: string;
+  image?: string;
+  images?: { src: string; alt?: string }[];
   titleClass?: string;
   centered?: boolean;
   overlayText?: string;
 }
 
-const { title, image, titleClass = "", centered = false, overlayText } = Astro.props;
+const { title, image, images = [], titleClass = "", centered = false, overlayText } = Astro.props;
+const heroImages = images.length > 0 ? images : image ? [{ src: image, alt: `${title} hero` }] : [];
+const hasSlides = heroImages.length > 1;
+const heroId = `hero-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 ---
 
 <section class={`page-hero ${centered ? "is-home" : ""}`}>
-  <img class="page-hero-image" src={image} alt={`${title} hero`} />
+  <div class={`page-hero-media ${hasSlides ? "is-slideshow" : ""}`} id={heroId}>
+    {heroImages.map((item, index) => (
+      <img
+        class={`page-hero-image ${index === 0 ? "is-active" : ""}`}
+        src={item.src}
+        alt={item.alt ?? `${title} hero`}
+        data-slide
+      />
+    ))}
+  </div>
   <div class={`page-hero-copy ${centered ? "is-centered" : ""}`}>
     <h1 class={titleClass}>{overlayText ?? title}</h1>
   </div>
 </section>
+
+{hasSlides && (
+  <script is:inline define:vars={{ heroId }}>
+    const root = document.getElementById(heroId);
+    const slides = root ? Array.from(root.querySelectorAll("[data-slide]")) : [];
+    let activeIndex = 0;
+
+    if (slides.length > 1) {
+      window.setInterval(() => {
+        slides[activeIndex]?.classList.remove("is-active");
+        activeIndex = (activeIndex + 1) % slides.length;
+        slides[activeIndex]?.classList.add("is-active");
+      }, 3800);
+    }
+  </script>
+)}

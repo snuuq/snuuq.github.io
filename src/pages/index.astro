@@ -1,23 +1,32 @@
 ---
 import { getCollection } from "astro:content";
+import { siteConfig } from "../config/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import { formatLongDate } from "../lib/dates";
 import { bannerPlaceholder } from "../lib/placeholders";
 
 const allNews = await getCollection("news");
+const allGallery = await getCollection("gallery");
 const sortByDateDesc = (a, b) => b.data.date.valueOf() - a.data.date.valueOf();
 const pinnedNews = allNews.filter((item) => item.data.pinned).sort(sortByDateDesc);
 const regularNews = allNews.filter((item) => !item.data.pinned).sort(sortByDateDesc);
 const news = [...pinnedNews, ...regularNews].slice(0, 5);
+const highlightedGallery = allGallery
+  .filter((item) => item.data.highlight && item.data.image)
+  .sort(sortByDateDesc);
+const heroImages =
+  highlightedGallery.length > 0
+    ? highlightedGallery.map((item) => ({ src: item.data.image!, alt: item.data.imageAlt ?? item.data.title }))
+    : [{ src: bannerPlaceholder("home"), alt: "Home hero" }];
 ---
 
 <BaseLayout currentPath="/">
   <PageHero
     title="Home"
-    image={bannerPlaceholder("home")}
+    images={heroImages}
     centered={true}
-    overlayText="Welcome to SNUUQ Lab!"
+    overlayText={siteConfig.title}
   />
 
   <section class="home-news">

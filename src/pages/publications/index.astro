@@ -22,9 +22,12 @@ const groupedPublications = typeOrder
     label: typeLabels[type],
     items: allPublications
       .filter((item) => item.data.type === type)
-      .sort((a, b) =>
-        b.data.year === a.data.year ? a.data.title.localeCompare(b.data.title) : b.data.year - a.data.year
-      )
+      .sort((a, b) => {
+        const aSort = a.data.sortId ?? -1;
+        const bSort = b.data.sortId ?? -1;
+        if (aSort !== bSort) return bSort - aSort;
+        return b.data.year === a.data.year ? a.data.title.localeCompare(b.data.title) : b.data.year - a.data.year;
+      })
   }))
   .filter((group) => group.items.length > 0);
 ---

@@ -5,7 +5,14 @@ import { formatLongDate } from "../../lib/dates";
 import { galleryPlaceholder } from "../../lib/placeholders";
 
 const albums = await Promise.all(
-  (await getCollection("gallery")).map(async (album) => {
+  (await getCollection("gallery"))
+    .sort((a, b) => {
+      if (a.data.date && b.data.date) return b.data.date.valueOf() - a.data.date.valueOf();
+      if (a.data.date) return -1;
+      if (b.data.date) return 1;
+      return a.data.title.localeCompare(b.data.title);
+    })
+    .map(async (album) => {
     const { Content } = await album.render();
     return { ...album, Content };
   })
