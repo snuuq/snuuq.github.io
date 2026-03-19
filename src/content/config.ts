@@ -53,15 +53,18 @@ const publications = defineCollection({
   schema: z.object({
     title: z.string(),
     year: z.number(),
-    type: z.enum(["Conference", "Journal", "Workshop", "Demo", "ArXiv Preprint"]),
+    yearLabel: z.string().optional(),
+    type: z.enum(["Conference", "Journal", "Workshop", "Demo", "ArXiv Preprint", "Book Chapter", "Submitted"]),
     authors: z.string(),
     venue: z.string(),
-    links: z.array(
-      z.object({
-        label: z.string(),
-        url: z.string()
-      })
-    )
+    links: z
+      .array(
+        z.object({
+          label: z.string(),
+          url: z.string()
+        })
+      )
+      .default([])
   })
 });
 

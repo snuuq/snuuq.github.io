@@ -1,9 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
 import { formatLongDate } from "../../lib/dates";
-import { bannerPlaceholder } from "../../lib/placeholders";
 
 const series = await getCollection("seminarSeries");
 const journalClub = series.find((item) => item.slug === "journal-club");
@@ -11,7 +9,11 @@ const seasonal = series.filter((item) => item.slug !== "journal-club");
 ---
 
 <BaseLayout title="Seminars" currentPath="/seminars/">
-  <PageHero title="Seminars" image={bannerPlaceholder("seminars")} titleClass="hero-seminars" />
+  <section class="page-title-section">
+    <div class="content-narrow">
+      <h1 class="page-title">Seminars</h1>
+    </div>
+  </section>
 
   <section class="section">
     <div class="content-narrow center-note">

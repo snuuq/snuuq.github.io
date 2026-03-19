@@ -1,16 +1,16 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
-import { bannerPlaceholder } from "../../lib/placeholders";
 
 const allPublications = await getCollection("publications");
 
-const typeOrder = ["Conference", "Journal", "Workshop", "Demo", "ArXiv Preprint"] as const;
+const typeOrder = ["Journal", "Submitted", "Book Chapter", "Conference", "Workshop", "Demo", "ArXiv Preprint"] as const;
 
 const typeLabels: Record<(typeof typeOrder)[number], string> = {
-  Conference: "Conferences",
   Journal: "Journals",
+  "Book Chapter": "Book Chapters",
+  Submitted: "Submitted Manuscripts",
+  Conference: "Conferences",
   Workshop: "Workshops",
   Demo: "Demos",
   "ArXiv Preprint": "ArXiv Preprints"
@@ -30,7 +30,11 @@ const groupedPublications = typeOrder
 ---
 
 <BaseLayout title="Publications" currentPath="/publications/">
-  <PageHero title="Publications" image={bannerPlaceholder("publications")} titleClass="hero-publications" />
+  <section class="page-title-section">
+    <div class="content-narrow">
+      <h1 class="page-title">Publications</h1>
+    </div>
+  </section>
 
   {groupedPublications.map((group) => (
     <section class="section">
@@ -40,12 +44,14 @@ const groupedPublications = typeOrder
         <ol>
           {group.items.map((item) => (
             <li>
-              {item.data.authors}. <span class="publication-title-inline">{item.data.title}</span>, <em>{item.data.venue}</em>, {item.data.year}.
-              <span class="publication-links-inline">
-                {item.data.links.map((link) => (
-                  <a href={link.url}>[{link.label.toLowerCase()}]</a>
-                ))}
-              </span>
+              {item.data.authors}. <span class="publication-title-inline">{item.data.title}</span>, <em>{item.data.venue}</em>, {item.data.yearLabel ?? item.data.year}.
+              {item.data.links.length > 0 && (
+                <span class="publication-links-inline">
+                  {item.data.links.map((link) => (
+                    <a href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+                  ))}
+                </span>
+              )}
             </li>
           ))}
         </ol>

@@ -1,9 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
 import { formatLongDate } from "../../lib/dates";
-import { bannerPlaceholder, galleryPlaceholder } from "../../lib/placeholders";
+import { galleryPlaceholder } from "../../lib/placeholders";
 
 const albums = await Promise.all(
   (await getCollection("gallery")).map(async (album) => {
@@ -14,7 +13,11 @@ const albums = await Promise.all(
 ---
 
 <BaseLayout title="Gallery" currentPath="/gallery/">
-  <PageHero title="Gallery" image={bannerPlaceholder("gallery")} titleClass="hero-gallery" />
+  <section class="page-title-section">
+    <div class="content-narrow">
+      <h1 class="page-title">Gallery</h1>
+    </div>
+  </section>
 
   <section class="section">
     <div class="gallery-grid">

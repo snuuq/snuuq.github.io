@@ -1,8 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
-import { bannerPlaceholder, topicPlaceholder } from "../../lib/placeholders";
+import { topicPlaceholder } from "../../lib/placeholders";
 
 const topics = (await getCollection("researchTopics")).sort((a, b) => a.data.order - b.data.order);
 const bandClasses = ["is-blue", "is-green", "is-cream"];
@@ -22,11 +21,14 @@ const topicDescriptions = {
 ---
 
 <BaseLayout title="Research" currentPath="/research/">
-  <PageHero title="Research" image={bannerPlaceholder("research")} titleClass="hero-research" />
+  <section class="page-title-section">
+    <div class="content-narrow">
+      <h1 class="page-title">Research</h1>
+    </div>
+  </section>
 
   <section class="research-intro">
     <div class="overview-wrap">
-      <h2 class="section-title">Overview</h2>
       <div class="plain-copy">
         <p class="lead-paragraph">
           Research at the Uncertainty Quantification Lab covers a broad range of topics on statistical machine learning,

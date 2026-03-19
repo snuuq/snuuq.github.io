@@ -238,9 +238,24 @@ main {
   padding: 4.4rem 0 0;
 }
 
-.section-title {
-  margin: 0 0 1.6rem;
+.page-title-section {
+  padding: 3.5rem 0 0.4rem;
+}
+
+.page-title {
+  margin: 0;
   text-align: center;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+  font-size: clamp(2.25rem, 3vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #111111;
+}
+
+.section-title {
+  width: min(calc(100% - 2rem), 1240px);
+  margin: 0 auto 1.6rem;
+  text-align: left;
   font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
   font-size: clamp(1.95rem, 2.8vw, 2.65rem);
   line-height: 1.08;
@@ -273,6 +288,10 @@ main {
 
 .home-news {
   padding-top: 4.1rem;
+}
+
+.home-news .section-title {
+  text-align: center;
 }
 
 .news-list {
@@ -360,8 +379,8 @@ main {
 .research-band-title {
   margin: 0 0 1.35rem;
   color: #111111;
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+  text-align: left;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
   font-size: clamp(1.95rem, 2.8vw, 2.65rem);
   line-height: 1.05;
 }
@@ -426,8 +445,19 @@ main {
 }
 
 .publication-links-inline a {
-  margin-left: 0.4rem;
-  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 0.5rem;
+  color: var(--nav-active);
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.publication-links-inline a::before {
+  content: "[";
+}
+
+.publication-links-inline a::after {
+  content: "]";
 }
 
 .members-section {
@@ -435,10 +465,11 @@ main {
 }
 
 .member-role-title {
-  margin: 0 0 3rem;
-  text-align: center;
+  width: min(calc(100% - 2rem), 1240px);
+  margin: 0 auto 3rem;
+  text-align: left;
   color: #111111;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
   font-size: clamp(1.95rem, 2.8vw, 2.65rem);
   line-height: 1.06;
 }
@@ -801,6 +832,7 @@ main {
   }
 
   .section-title,
+  .page-title,
   .member-role-title,
   .research-band-title {
     font-size: 2rem;

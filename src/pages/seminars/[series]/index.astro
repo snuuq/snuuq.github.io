@@ -1,9 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import PageHero from "../../../components/PageHero.astro";
 import { formatLongDate } from "../../../lib/dates";
-import { bannerPlaceholder } from "../../../lib/placeholders";
 
 export async function getStaticPaths() {
   const series = await getCollection("seminarSeries");
@@ -29,7 +27,11 @@ const sessions = allSessions
 ---
 
 <BaseLayout title={seriesEntry.data.title} currentPath="/seminars/">
-  <PageHero title={seriesEntry.data.title} image={bannerPlaceholder("seminars")} titleClass="hero-seminars" />
+  <section class="page-title-section">
+    <div class="content-narrow">
+      <h1 class="page-title">{seriesEntry.data.title}</h1>
+    </div>
+  </section>
 
   <section class="section">
     <div class="content-narrow center-note">
