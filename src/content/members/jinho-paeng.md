@@ -3,7 +3,7 @@ nameKo: 팽진호
 nameEn: Jinho Paeng
 role: intern
 title: Intern
-joined: "2026.03"
+joined: 2026-03-01
 photoAlt: Placeholder profile image for Jinho Paeng
 ---
 

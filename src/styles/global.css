@@ -6,8 +6,8 @@
   --muted: #7f8a91;
   --line: #d6d9dd;
   --nav: #9ea4aa;
-  --nav-active: #3f86a6;
-  --brand: #3f86a6;
+  --nav-active: #001871;
+  --brand: #001871;
   --green: #7bb43d;
   --teal: #47bcc4;
   --purple: #5148b6;
@@ -35,6 +35,16 @@ body {
 a {
   color: #6ea4c5;
   text-decoration: none;
+  cursor: pointer;
+}
+
+button,
+[role="button"],
+.text-button,
+.member-link-button,
+.nav a,
+.brand {
+  cursor: pointer;
 }
 
 a:hover {
@@ -287,7 +297,7 @@ main {
 }
 
 .see-more-link {
-  color: #3f86a6;
+  color: #001871;
   font-size: 0.98rem;
   font-weight: 600;
 }
@@ -358,13 +368,13 @@ main {
 
 .research-band-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 1.5rem;
+  grid-template-columns: 1.28fr 0.72fr;
+  gap: 1.1rem;
   align-items: start;
 }
 
 .research-band-grid.is-reversed {
-  grid-template-columns: 0.85fr 1.15fr;
+  grid-template-columns: 0.72fr 1.28fr;
 }
 
 .research-band-grid.is-reversed .research-band-media {
@@ -373,6 +383,8 @@ main {
 
 .research-band-media img {
   width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .research-sublist-title {
@@ -656,9 +668,13 @@ main {
   margin-top: -0.1rem;
 }
 
+.gallery-copy p {
+  margin: 0;
+}
+
 .footer {
   margin-top: 5.5rem;
-  border-top: 4px solid #2e7b99;
+  border-top: 4px solid #001871;
 }
 
 .footer-inner {
@@ -670,13 +686,12 @@ main {
 
 .footer-mark {
   width: 58px;
-  height: 58px;
-  border: 1px solid #8da8c2;
-  display: grid;
-  place-items: center;
-  color: #2e7b99;
-  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
-  font-size: 0.72rem;
+  flex: 0 0 58px;
+}
+
+.footer-mark img {
+  width: 100%;
+  height: auto;
 }
 
 .footer-copy p {

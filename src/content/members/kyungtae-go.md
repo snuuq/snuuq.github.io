@@ -4,7 +4,7 @@ nameEn: Kyungtae Go
 role: phd
 title: PhD Student
 emailMasked: kgt0813 (at) snu (dot) ac (dot) kr
-joined: "2026.03"
+joined: 2025-09-01
 photoAlt: Placeholder profile image for Kyungtae Go
 ---
 

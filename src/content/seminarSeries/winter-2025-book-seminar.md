@@ -1,7 +1,7 @@
 ---
 title: Winter 2025 Book Seminar
 category: Seasonal Seminar
-period: Winter 2025
+date: 2025-01-01
 sortOrder: asc
 ---
 

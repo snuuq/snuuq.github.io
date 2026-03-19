@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
+import { formatLongDate } from "../lib/dates";
 import { bannerPlaceholder } from "../lib/placeholders";
 
 const allNews = await getCollection("news");
@@ -16,7 +17,7 @@ const news = [...pinnedNews, ...regularNews].slice(0, 5);
     title="Home"
     image={bannerPlaceholder("home")}
     centered={true}
-    overlayText="Welcome to SNUUQ!"
+    overlayText="Welcome to SNUUQ Lab!"
   />
 
   <section class="home-news">
@@ -24,7 +25,7 @@ const news = [...pinnedNews, ...regularNews].slice(0, 5);
     <ul class="news-list">
       {news.map((item) => (
         <li>
-          <strong>{item.data.pinned ? "📌 " : ""}{item.data.date.toLocaleDateString("en-CA")}</strong> {item.data.title}
+          <strong>{item.data.pinned ? "📌 " : ""}{formatLongDate(item.data.date)}</strong> {item.data.title}
         </li>
       ))}
     </ul>

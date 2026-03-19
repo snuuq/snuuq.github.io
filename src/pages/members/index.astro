@@ -2,15 +2,13 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
+import { formatMonthYear } from "../../lib/dates";
 import MemberLinks from "../../components/MemberLinks.astro";
 import { avatarPlaceholder, bannerPlaceholder } from "../../lib/placeholders";
 
 const allMembers = await getCollection("members");
 
-const parseJoined = (value: string) => {
-  const [year, month = "01"] = value.split(".");
-  return Number(year) * 100 + Number(month);
-};
+const parseJoined = (value: Date) => value.valueOf();
 
 const sortStudents = (members) =>
   [...members].sort((a, b) => {
@@ -45,7 +43,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong>, Seoul National University (since {member.data.joined})
+                <strong>{member.data.title}</strong>, Seoul National University
               </div>
               <ul>
                 <li>{member.body}</li>
@@ -74,7 +72,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong>, Department of Statistics, Seoul National University (since {member.data.joined})
+                <strong>{member.data.title}</strong>, Department of Statistics, Seoul National University (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
                 <li>{member.body}</li>
@@ -102,7 +100,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong> (since {member.data.joined})
+                <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
                 <li>{member.body}</li>
@@ -130,7 +128,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong> (since {member.data.joined})
+                <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
                 <li>{member.body}</li>
@@ -158,7 +156,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong> (since {member.data.joined})
+                <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
                 <li>{member.body}</li>
@@ -185,7 +183,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <h3 class="member-name">{member.data.nameEn}</h3>
                 <MemberLinks links={member.data.links} />
               </div>
-              <div class="member-title-line"><strong>{member.data.title} (since {member.data.joined})</strong></div>
+              <div class="member-title-line"><strong>{member.data.title} (since {formatMonthYear(member.data.joined)})</strong></div>
               <div class="plain-copy">
                 <p>{member.body}</p>
                 {member.data.emailMasked && <p>{member.data.emailMasked}</p>}

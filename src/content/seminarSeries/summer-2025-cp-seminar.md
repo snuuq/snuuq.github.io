@@ -1,7 +1,7 @@
 ---
 title: Summer 2025 CP Seminar
 category: Seasonal Seminar
-period: Summer 2025
+date: 2025-07-01
 sortOrder: asc
 ---
 

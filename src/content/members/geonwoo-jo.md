@@ -4,7 +4,7 @@ nameEn: Geonwoo Jo
 role: ms
 title: MS Student
 emailMasked: aiden2978 (at) gmail (dot) com
-joined: "2026.03"
+joined: 2026-03-01
 photoAlt: Placeholder profile image for Geonwoo Jo
 links:
   homepage: https://example.com/geonwoo-jo

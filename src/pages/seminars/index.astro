@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
+import { formatLongDate } from "../../lib/dates";
 import { bannerPlaceholder } from "../../lib/placeholders";
 
 const series = await getCollection("seminarSeries");
@@ -24,7 +25,7 @@ const seasonal = series.filter((item) => item.slug !== "journal-club");
         <div class="seminar-series-list">
           <article class="seminar-series-card">
             <h3>{journalClub.data.title}</h3>
-            <p class="inline-meta"><span>{journalClub.data.period}</span></p>
+            <p class="inline-meta"><span>{formatLongDate(journalClub.data.date)}</span></p>
             <p>{journalClub.body}</p>
             <a class="text-button" href={`/seminars/${journalClub.slug}/`}>Open Journal Club</a>
           </article>
@@ -39,7 +40,7 @@ const seasonal = series.filter((item) => item.slug !== "journal-club");
       {seasonal.map((item) => (
         <article class="seminar-series-card">
           <h3>{item.data.title}</h3>
-          <p class="inline-meta"><span>{item.data.period}</span></p>
+          <p class="inline-meta"><span>{formatLongDate(item.data.date)}</span></p>
           <p>{item.body}</p>
           <a class="text-button" href={`/seminars/${item.slug}/`}>View Series</a>
         </article>

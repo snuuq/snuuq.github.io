@@ -4,7 +4,7 @@ nameEn: Juyoung Hwang
 role: ms
 title: MS Student
 emailMasked: jystat305 (at) snu (dot) ac (dot) kr
-joined: "2026.03"
+joined: 2024-09-01
 photoAlt: Placeholder profile image for Juyoung Hwang
 ---
 

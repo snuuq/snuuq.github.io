@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageHero from "../../../components/PageHero.astro";
+import { formatLongDate } from "../../../lib/dates";
 import { bannerPlaceholder } from "../../../lib/placeholders";
 
 export async function getStaticPaths() {
@@ -43,7 +44,7 @@ const sessions = allSessions
             <h3>{session.data.week ? `${session.data.week} : ${session.data.title}` : session.data.title}</h3>
             <p class="inline-meta">
               <span>{session.data.speaker}</span>
-              <span>{session.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}</span>
+              <span>{formatLongDate(session.data.date)}</span>
             </p>
             <p>{session.body}</p>
             <a class="text-button" href={`/seminars/${seriesEntry.slug}/${session.slug}/`}>Open Session</a>

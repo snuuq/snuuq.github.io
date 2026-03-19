@@ -1,7 +1,7 @@
 ---
 title: Journal Club
 category: Journal Club
-period: Ongoing during semesters
+date: 2025-03-01
 sortOrder: desc
 ---
 

@@ -4,7 +4,7 @@ nameEn: Yunseo Choi
 role: ms
 title: MS Student
 emailMasked: sycy01 (at) snu (dot) ac (dot) kr
-joined: "2026.03"
+joined: 2025-03-01
 photoAlt: Placeholder profile image for Yunseo Choi
 ---
 

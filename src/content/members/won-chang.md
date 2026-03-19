@@ -2,9 +2,9 @@
 nameKo: 장원
 nameEn: Won Chang
 role: professor
-title: Professor
+title: Associate Professor
 emailMasked: wonchang (at) snu (dot) ac (dot) kr
-joined: "2026.03"
+joined: 2026-03-01
 photo: https://www.wonchang.net/WonChang.png
 photoAlt: Placeholder profile image for Won Chang
 links:

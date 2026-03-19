@@ -17,7 +17,7 @@ const members = defineCollection({
     role: z.enum(["professor", "postdoc", "phd", "ms", "intern", "alumni"]),
     title: z.string(),
     emailMasked: z.string().optional(),
-    joined: z.string(),
+    joined: z.date(),
     photo: z.string().optional(),
     photoAlt: z.string().optional(),
     links: z
@@ -80,7 +80,7 @@ const seminarSeries = defineCollection({
   schema: z.object({
     title: z.string(),
     category: z.enum(["Journal Club", "Seasonal Seminar"]),
-    period: z.string(),
+    date: z.date(),
     sortOrder: z.enum(["asc", "desc"])
   })
 });
@@ -101,7 +101,7 @@ const gallery = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    date: z.string().optional(),
+    date: z.date().optional(),
     image: z.string().optional(),
     imageAlt: z.string().optional()
   })

@@ -7,6 +7,18 @@ import { bannerPlaceholder, topicPlaceholder } from "../../lib/placeholders";
 const topics = (await getCollection("researchTopics")).sort((a, b) => a.data.order - b.data.order);
 const bandClasses = ["is-blue", "is-green", "is-cream"];
 const topicAccents = ["#d8edf8", "#d9efcf", "#f0ead1", "#d8edf8", "#d9efcf"];
+const topicDescriptions = {
+  "Variational Deep Neural Networks":
+    "We focus on statistically grounded deep learning methods for structured scientific data, especially when reliable uncertainty estimates matter as much as raw predictive accuracy.",
+  "Tabular Foundation Models":
+    "Our work studies how modern tabular foundation models behave under distribution shift, calibration pressure, and real decision-making settings where trustworthy deployment is essential.",
+  "Normalizing Flows and Bayesian Inference":
+    "This line of work emphasizes flexible posterior approximation and scalable Bayesian workflows for inverse problems and simulation-based scientific inference.",
+  "Conformal Prediction":
+    "We develop conformal tools that provide finite-sample uncertainty guarantees and adapt them to scientific models, forecasting problems, and structured prediction tasks.",
+  "Physics-Informed Machine Learning":
+    "We integrate physical knowledge with machine learning models to improve reconstruction, prediction, and uncertainty quantification for complex spatio-temporal systems."
+};
 ---
 
 <BaseLayout title="Research" currentPath="/research/">
@@ -41,10 +53,7 @@ const topicAccents = ["#d8edf8", "#d9efcf", "#f0ead1", "#d8edf8", "#d9efcf"];
         <div class={`research-band-grid ${index % 2 === 1 ? "is-reversed" : ""}`}>
           <div class="rich-copy">
             <p>{topic.body}</p>
-            <p>
-              This track combines methodological development with practical deployment settings, focusing on reliable
-              inference, scalable learning, and scientifically useful uncertainty estimates.
-            </p>
+            <p>{topicDescriptions[topic.data.title] ?? "We pursue methods that balance statistical rigor, practical usefulness, and uncertainty-aware decision making."}</p>
 
             <h3 class="research-sublist-title">Recent themes</h3>
             <ul>
