@@ -70,7 +70,8 @@ const news = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.date(),
-    category: z.string()
+    category: z.string(),
+    pinned: z.boolean().optional().default(false)
   })
 });
 

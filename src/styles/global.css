@@ -280,6 +280,18 @@ main {
   font-weight: 700;
 }
 
+.see-more-wrap {
+  margin: 1.3rem auto 0;
+  width: min(calc(100% - 2rem), 1100px);
+  text-align: left;
+}
+
+.see-more-link {
+  color: #3f86a6;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
 .home-section {
   padding-top: 4rem;
 }

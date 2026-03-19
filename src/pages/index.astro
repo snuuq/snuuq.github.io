@@ -4,7 +4,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import { bannerPlaceholder } from "../lib/placeholders";
 
-const news = (await getCollection("news")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const allNews = await getCollection("news");
+const sortByDateDesc = (a, b) => b.data.date.valueOf() - a.data.date.valueOf();
+const pinnedNews = allNews.filter((item) => item.data.pinned).sort(sortByDateDesc);
+const regularNews = allNews.filter((item) => !item.data.pinned).sort(sortByDateDesc);
+const news = [...pinnedNews, ...regularNews].slice(0, 5);
 ---
 
 <BaseLayout currentPath="/">
@@ -20,9 +24,12 @@ const news = (await getCollection("news")).sort((a, b) => b.data.date.valueOf() 
     <ul class="news-list">
       {news.map((item) => (
         <li>
-          <strong>{item.data.date.toLocaleDateString("en-CA")}</strong> {item.data.title}
+          <strong>{item.data.pinned ? "📌 " : ""}{item.data.date.toLocaleDateString("en-CA")}</strong> {item.data.title}
         </li>
       ))}
     </ul>
+    <p class="see-more-wrap">
+      <a href="/news/" class="see-more-link">See more</a>
+    </p>
   </section>
 </BaseLayout>
