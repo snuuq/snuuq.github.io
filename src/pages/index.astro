@@ -10,7 +10,8 @@ const allGallery = await getCollection("gallery");
 const sortByDateDesc = (a, b) => b.data.date.valueOf() - a.data.date.valueOf();
 const pinnedNews = allNews.filter((item) => item.data.pinned).sort(sortByDateDesc);
 const regularNews = allNews.filter((item) => !item.data.pinned).sort(sortByDateDesc);
-const news = [...pinnedNews, ...regularNews].slice(0, 5);
+const allOrderedNews = [...pinnedNews, ...regularNews];
+const news = allOrderedNews.slice(0, 5);
 const highlightedGallery = allGallery
   .filter((item) => item.data.highlight && item.data.image)
   .sort(sortByDateDesc);
@@ -34,17 +35,19 @@ const heroImages =
         ))}
       </div>
 
-      <div class="home-hero-copy">
-        <p class="home-hero-eyebrow">SNUUQ</p>
-        <h1>Uncertainty Quantification Lab</h1>
-        <p class="home-hero-summary">
-          We develop statistically principled uncertainty quantification methods for scientific models, modern machine
-          learning, and reliable decision-making under uncertainty.
-        </p>
-        <div class="home-hero-actions">
-          <a href="/research/" class="home-hero-button is-primary">Research Detail</a>
-          <a href="/publications/" class="home-hero-button is-secondary">Publications</a>
-          <a href="/seminars/" class="home-hero-button is-secondary">Seminars</a>
+      <div class="home-hero-copy-wrap">
+        <div class="home-hero-copy">
+          <p class="home-hero-eyebrow">SNUUQ</p>
+          <h1>Uncertainty Quantification Lab</h1>
+          <p class="home-hero-summary">
+            We develop statistically principled uncertainty quantification methods for scientific models, modern machine
+            learning, and reliable decision-making under uncertainty.
+          </p>
+          <div class="home-hero-actions">
+            <a href="/research/" class="home-hero-button is-primary">Research Detail</a>
+            <a href="/publications/" class="home-hero-button is-secondary">Publications</a>
+            <a href="/seminars/" class="home-hero-button is-secondary">Seminars</a>
+          </div>
         </div>
       </div>
     </div>
@@ -59,9 +62,11 @@ const heroImages =
         </li>
       ))}
     </ul>
-    <p class="see-more-wrap">
-      <a href="/news/" class="see-more-link">See more</a>
-    </p>
+    {allOrderedNews.length > 5 && (
+      <p class="see-more-wrap">
+        <a href="/news/" class="see-more-link">See more</a>
+      </p>
+    )}
   </section>
 
   {heroImages.length > 1 && (

@@ -229,14 +229,23 @@ main {
     linear-gradient(180deg, rgba(10, 18, 38, 0.18) 0%, rgba(10, 18, 38, 0.38) 100%);
 }
 
+.home-hero-copy-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: min(calc(100% - 3rem), var(--max));
+  margin: 0 auto;
+  pointer-events: none;
+}
+
 .home-hero-copy {
   position: absolute;
-  left: min(5vw, 4rem);
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 1;
-  width: min(92vw, 760px);
+  width: min(760px, 92vw);
   color: #ffffff;
+  pointer-events: auto;
 }
 
 .home-hero-eyebrow {
@@ -961,9 +970,12 @@ main {
     font-size: 2rem;
   }
 
+  .home-hero-copy-wrap {
+    width: min(calc(100% - 2rem), var(--max));
+  }
+
   .home-hero-copy {
-    left: 1.5rem;
-    width: calc(100% - 3rem);
+    width: min(100%, 620px);
   }
 
   .home-hero-copy h1 {
