@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import { siteConfig } from "../config/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PageHero from "../components/PageHero.astro";
 import { formatLongDate } from "../lib/dates";
 import { bannerPlaceholder } from "../lib/placeholders";
 
@@ -22,12 +21,34 @@ const heroImages =
 ---
 
 <BaseLayout currentPath="/">
-  <PageHero
-    title="Home"
-    images={heroImages}
-    centered={true}
-    overlayText={siteConfig.title}
-  />
+  <section class="home-hero">
+    <div class={`page-hero is-home`}>
+      <div class={`page-hero-media ${heroImages.length > 1 ? "is-slideshow" : ""}`} id="home-hero-slides">
+        {heroImages.map((item, index) => (
+          <img
+            class={`page-hero-image ${index === 0 ? "is-active" : ""}`}
+            src={item.src}
+            alt={item.alt}
+            data-slide
+          />
+        ))}
+      </div>
+
+      <div class="home-hero-copy">
+        <p class="home-hero-eyebrow">SNUUQ</p>
+        <h1>Uncertainty Quantification Lab</h1>
+        <p class="home-hero-summary">
+          We develop statistically principled uncertainty quantification methods for scientific models, modern machine
+          learning, and reliable decision-making under uncertainty.
+        </p>
+        <div class="home-hero-actions">
+          <a href="/research/" class="home-hero-button is-primary">Research Detail</a>
+          <a href="/publications/" class="home-hero-button is-secondary">Publications</a>
+          <a href="/seminars/" class="home-hero-button is-secondary">Seminars</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="home-news">
     <h2 class="section-title">Recent News</h2>
@@ -42,4 +63,20 @@ const heroImages =
       <a href="/news/" class="see-more-link">See more</a>
     </p>
   </section>
+
+  {heroImages.length > 1 && (
+    <script is:inline>
+      const root = document.getElementById("home-hero-slides");
+      const slides = root ? Array.from(root.querySelectorAll("[data-slide]")) : [];
+      let activeIndex = 0;
+
+      if (slides.length > 1) {
+        window.setInterval(() => {
+          slides[activeIndex]?.classList.remove("is-active");
+          activeIndex = (activeIndex + 1) % slides.length;
+          slides[activeIndex]?.classList.add("is-active");
+        }, 3800);
+      }
+    </script>
+  )}
 </BaseLayout>

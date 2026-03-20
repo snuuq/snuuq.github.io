@@ -219,6 +219,92 @@ main {
   min-height: 0;
 }
 
+.home-hero .page-hero.is-home .page-hero-media {
+  height: 540px;
+}
+
+.home-hero .page-hero::after {
+  background:
+    linear-gradient(90deg, rgba(10, 18, 38, 0.78) 0%, rgba(10, 18, 38, 0.58) 26%, rgba(10, 18, 38, 0.22) 56%, rgba(10, 18, 38, 0.06) 100%),
+    linear-gradient(180deg, rgba(10, 18, 38, 0.18) 0%, rgba(10, 18, 38, 0.38) 100%);
+}
+
+.home-hero-copy {
+  position: absolute;
+  left: min(5vw, 4rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: min(92vw, 760px);
+  color: #ffffff;
+}
+
+.home-hero-eyebrow {
+  margin: 0 0 1rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.home-hero-copy h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2.9rem, 5vw, 4.7rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.home-hero-summary {
+  margin: 0 0 1.8rem;
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  line-height: 1.6;
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.home-hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 170px;
+  min-height: 50px;
+  padding: 0.8rem 1.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.home-hero-button:hover {
+  text-decoration: none;
+}
+
+.home-hero-button.is-primary {
+  background: #ffffff;
+  color: #0f2148;
+  border-color: #ffffff;
+}
+
+.home-hero-button.is-secondary {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.home-hero-button.is-secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
 .page-hero-copy {
   position: absolute;
   left: 6vw;
@@ -845,6 +931,10 @@ main {
     height: 280px;
   }
 
+  .home-hero .page-hero.is-home .page-hero-media {
+    height: 470px;
+  }
+
   .page-hero-copy {
     left: 2rem;
   }
@@ -869,5 +959,22 @@ main {
   .member-role-title,
   .research-band-title {
     font-size: 2rem;
+  }
+
+  .home-hero-copy {
+    left: 1.5rem;
+    width: calc(100% - 3rem);
+  }
+
+  .home-hero-copy h1 {
+    font-size: clamp(2.4rem, 10vw, 3.5rem);
+  }
+
+  .home-hero-summary {
+    font-size: 1rem;
+  }
+
+  .home-hero-button {
+    min-width: 150px;
   }
 }
