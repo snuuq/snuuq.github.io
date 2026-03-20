@@ -66,7 +66,10 @@ const topicDescriptions = {
           </div>
 
           <div class="research-band-media">
-            <img src={topicPlaceholder(topic.data.title, topicAccents[index % topicAccents.length])} alt={topic.data.title} />
+            <img
+              src={topic.data.image ?? topicPlaceholder(topic.data.title, topicAccents[index % topicAccents.length])}
+              alt={topic.data.imageAlt ?? `${topic.data.title} research image`}
+            />
           </div>
         </div>
       </div>

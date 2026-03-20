@@ -30,7 +30,10 @@ const albums = await Promise.all(
     <div class="gallery-grid">
       {albums.map((album) => (
         <article class="gallery-card">
-          <img src={album.data.image ?? galleryPlaceholder(album.data.title)} alt={album.data.imageAlt ?? album.data.title} />
+          <img
+            src={album.data.image ?? galleryPlaceholder(album.data.title)}
+            alt={album.data.imageAlt ?? `${album.data.title} gallery image`}
+          />
           <h3>{album.data.title}</h3>
           {album.data.date && <div class="inline-meta"><span>{formatLongDate(album.data.date)}</span></div>}
           <div class="gallery-copy">

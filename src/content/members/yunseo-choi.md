@@ -5,7 +5,6 @@ role: ms
 title: MS Student
 emailMasked: sycy01 (at) snu (dot) ac (dot) kr
 joined: 2025-03-01
-photoAlt: Placeholder profile image for Yunseo Choi
 ---
 
 Placeholder research interests on uncertainty quantification, robust ML, and predictive intervals.

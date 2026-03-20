@@ -34,6 +34,8 @@ const researchTopics = defineCollection({
   schema: z.object({
     title: z.string(),
     order: z.number(),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
     highlights: z.array(z.string())
   })
 });

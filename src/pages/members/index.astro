@@ -38,7 +38,10 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
         {faculty.map((member) => (
           <article class="faculty-member">
             <div class="member-photo">
-              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#cdd9c1")} alt={member.data.photoAlt ?? member.data.nameEn} />
+              <img
+                src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#cdd9c1")}
+                alt={member.data.photoAlt ?? `${member.data.nameEn}'s profile image`}
+              />
             </div>
             <div class="member-bio">
               <div class="member-heading">
@@ -67,7 +70,10 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
         {postdocs.map((member) => (
           <article class="postdoc-member">
             <div class="member-photo">
-              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#d7e0ea")} alt={member.data.photoAlt ?? member.data.nameEn} />
+              <img
+                src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#d7e0ea")}
+                alt={member.data.photoAlt ?? `${member.data.nameEn}'s profile image`}
+              />
             </div>
             <div class="member-bio">
               <div class="member-heading">
@@ -95,7 +101,10 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
         {phdStudents.map((member) => (
           <article class="member-grid-card">
             <div class="member-photo">
-              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#d6dfeb")} alt={member.data.photoAlt ?? member.data.nameEn} />
+              <img
+                src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#d6dfeb")}
+                alt={member.data.photoAlt ?? `${member.data.nameEn}'s profile image`}
+              />
             </div>
             <div>
               <div class="member-heading">
@@ -123,7 +132,10 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
         {msStudents.map((member) => (
           <article class="member-grid-card">
             <div class="member-photo">
-              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#eadfdf")} alt={member.data.photoAlt ?? member.data.nameEn} />
+              <img
+                src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#eadfdf")}
+                alt={member.data.photoAlt ?? `${member.data.nameEn}'s profile image`}
+              />
             </div>
             <div>
               <div class="member-heading">
@@ -151,7 +163,10 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
         {interns.map((member) => (
           <article class="member-grid-card">
             <div class="member-photo">
-              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#e9e3d6")} alt={member.data.photoAlt ?? member.data.nameEn} />
+              <img
+                src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#e9e3d6")}
+                alt={member.data.photoAlt ?? `${member.data.nameEn}'s profile image`}
+              />
             </div>
             <div>
               <div class="member-heading">
@@ -179,7 +194,10 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
         {alumni.map((member) => (
           <article class="alumni-card">
             <div class="member-photo">
-              <img src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#dee1e5")} alt={member.data.photoAlt ?? member.data.nameEn} />
+              <img
+                src={member.data.photo ?? avatarPlaceholder(member.data.nameEn, "#dee1e5")}
+                alt={member.data.photoAlt ?? `${member.data.nameEn}'s profile image`}
+              />
             </div>
             <div>
               <div class="member-heading">

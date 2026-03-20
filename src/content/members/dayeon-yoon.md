@@ -5,7 +5,6 @@ role: ms
 title: MS Student
 emailMasked: dayeon0302 (at) snu (dot) ac (dot) kr
 joined: 2026-03-01
-photoAlt: Placeholder profile image for Dayeon Yoon
 links:
   linkedin: https://www.linkedin.com/in/dayeon-yoon/
 ---

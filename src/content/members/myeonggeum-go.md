@@ -5,7 +5,6 @@ role: ms
 title: MS Student
 emailMasked: kgg22 (at) snu (dot) ac (dot) kr
 joined: 2025-09-01
-photoAlt: Placeholder profile image for Myeonggeum Go
 ---
 
 Placeholder research interests on probabilistic modeling, uncertainty quantification, and applied statistics.
