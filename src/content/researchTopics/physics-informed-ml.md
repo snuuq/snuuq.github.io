@@ -1,6 +1,7 @@
 ---
 title: Physics-Informed Machine Learning
-order: 5
+order: 3
+image: /images/research/pinn.png
 highlights:
   - Physics-Informed Neural Networks
   - Diffusion-based reconstruction

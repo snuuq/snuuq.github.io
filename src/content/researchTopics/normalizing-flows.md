@@ -1,6 +1,7 @@
 ---
 title: Normalizing Flows and Bayesian Inference
-order: 3
+order: 1
+image: /images/research/normalizing-flow.png
 highlights:
   - Amortized posterior inference
   - Complex posterior geometry

@@ -1,6 +1,7 @@
 ---
 title: Variational Deep Neural Networks
-order: 1
+order: 4
+image: /images/research/vnn-iceberg.png
 highlights:
   - Statistical learning with high-dimensional scientific inputs
   - Uncertainty-aware prediction for structured covariates

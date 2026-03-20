@@ -1,6 +1,7 @@
 ---
 title: Tabular Foundation Models
-order: 2
+order: 5
+image: /images/research/tabpfn.png
 highlights:
   - Reliable extrapolation and calibration
   - Uncertainty analysis of Transformer-based tabular models

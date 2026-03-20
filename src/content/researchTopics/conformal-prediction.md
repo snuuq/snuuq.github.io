@@ -1,6 +1,7 @@
 ---
 title: Conformal Prediction
-order: 4
+order: 2
+image: /images/research/cp.png
 highlights:
   - Conformal risk control
   - Prediction intervals for simulator outputs
