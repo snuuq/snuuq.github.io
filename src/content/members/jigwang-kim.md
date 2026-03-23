@@ -7,4 +7,4 @@ emailMasked: wlrhkd1230 (at) snu (dot) ac (dot) kr
 joined: 2025-03-01
 ---
 
-Placeholder research interests on Bayesian computation, calibration, and robust predictive inference.
+Physics-informed machine learning, Generative Modeling, etc.
