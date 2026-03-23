@@ -3,7 +3,9 @@ nameKo: 팽진호
 nameEn: Jinho Paeng
 role: intern
 title: Intern
-joined: 2026-03-01
+photo: /images/members/jinho-paeng.jpg
+emailMasked: jhpaeng02 (at) snu (dot) ac (dot) kr
+joined: 2025-03-01
 ---
 
-Placeholder research interests on introductory statistical learning and reproducible coding workflows.
+Physics-Informed Diffusion Model

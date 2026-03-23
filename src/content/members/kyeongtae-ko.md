@@ -1,10 +1,12 @@
 ---
 nameKo: 고경태
-nameEn: Kyungtae Go
+nameEn: Kyeongtae Ko
 role: phd
 title: PhD Student
 emailMasked: kgt0813 (at) snu (dot) ac (dot) kr
 joined: 2025-09-01
+links:
+  homepage: https://sites.google.com/knu.ac.kr/kyeongtaeko/home
 ---
 
-Placeholder research interests on uncertainty-aware machine learning and statistical modeling.
+Neural Symbolic Regression
