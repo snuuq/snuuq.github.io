@@ -1,6 +1,6 @@
 ---
 nameKo: 김지광
-nameEn: Jigwang Kim
+nameEn: Jikwang Kim
 role: phd
 title: PhD Student
 emailMasked: wlrhkd1230 (at) snu (dot) ac (dot) kr
