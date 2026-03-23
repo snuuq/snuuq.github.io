@@ -3,6 +3,7 @@ nameKo: 황주영
 nameEn: Juyoung Hwang
 role: ms
 title: MS Student
+photo: /images/members/juyoung-hwang.jpg
 emailMasked: jystat305 (at) snu (dot) ac (dot) kr
 joined: 2024-09-01
 links:
