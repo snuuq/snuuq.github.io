@@ -3,10 +3,13 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import GiscusComments from "../../../components/GiscusComments.astro";
 import { formatLongDate } from "../../../lib/dates";
+import { firstSentence } from "../../../lib/text";
 
 export async function getStaticPaths() {
   const sessions = await getCollection("seminarSessions");
-  return sessions.map((entry) => ({
+  return sessions
+    .filter((entry) => entry.data.title.trim().toUpperCase() !== "TBA")
+    .map((entry) => ({
     params: {
       series: entry.data.series,
       session: entry.slug
@@ -14,15 +17,17 @@ export async function getStaticPaths() {
     props: {
       sessionEntry: entry
     }
-  }));
+    }));
 }
 
 const { sessionEntry } = Astro.props;
+const { Content: SessionContent } = await sessionEntry.render();
 const seriesCollection = await getCollection("seminarSeries");
 const seriesEntry = seriesCollection.find((item) => item.slug === sessionEntry.data.series);
+const sessionDescription = firstSentence(sessionEntry.body);
 ---
 
-<BaseLayout title={sessionEntry.data.title} currentPath="/seminars/">
+<BaseLayout title={sessionEntry.data.title} description={sessionDescription} currentPath="/seminars/">
   <section class="page-title-section">
     <div class="content-narrow">
       <h1 class="page-title">{sessionEntry.data.title}</h1>
@@ -31,7 +36,6 @@ const seriesEntry = seriesCollection.find((item) => item.slug === sessionEntry.d
 
   <section class="section">
     <div class="seminar-detail">
-      <h2 class="section-title">Overview</h2>
       <p class="center-note">
         <span class="inline-meta">
           <span>{sessionEntry.data.speaker}</span>
@@ -40,11 +44,12 @@ const seriesEntry = seriesCollection.find((item) => item.slug === sessionEntry.d
           {sessionEntry.data.week && <span>{sessionEntry.data.week}</span>}
         </span>
       </p>
-      <div class="plain-copy">
-        <p>{sessionEntry.body}</p>
+      <h2 class="section-title">Overview</h2>
+      <div class="plain-copy markdown-copy">
+        <SessionContent />
       </div>
       <div class="button-row">
-        <a class="text-button" href={sessionEntry.data.materials}>Presentation Materials</a>
+        {sessionEntry.data.materials && <a class="text-button" href={sessionEntry.data.materials}>Presentation Materials</a>}
         {seriesEntry && <a class="text-button" href={`/seminars/${seriesEntry.slug}/`}>Back to Series</a>}
       </div>
     </div>

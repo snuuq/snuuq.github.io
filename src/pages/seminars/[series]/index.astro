@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { formatLongDate } from "../../../lib/dates";
+import { firstSentence } from "../../../lib/text";
 
 export async function getStaticPaths() {
   const series = await getCollection("seminarSeries");
@@ -12,10 +13,17 @@ export async function getStaticPaths() {
 }
 
 const { seriesEntry } = Astro.props;
+const { Content: SeriesContent } = await seriesEntry.render();
 const allSessions = await getCollection("seminarSessions");
-const sessions = allSessions
-  .filter((item) => item.data.series === seriesEntry.slug)
-  .sort((a, b) => {
+const renderedSessions = await Promise.all(
+  allSessions
+    .filter((item) => item.data.series === seriesEntry.slug)
+    .map(async (item) => {
+      const { Content } = await item.render();
+      return { ...item, Content };
+    })
+);
+const sessions = renderedSessions.sort((a, b) => {
     if (seriesEntry.data.sortOrder === "desc") {
       return b.data.date.valueOf() - a.data.date.valueOf();
     }
@@ -24,35 +32,54 @@ const sessions = allSessions
     }
     return a.data.date.valueOf() - b.data.date.valueOf();
   });
+const getSessionPreview = (session) => firstSentence(session.body);
+const isJournalClub = seriesEntry.slug === "journal-club";
 ---
 
-<BaseLayout title={seriesEntry.data.title} currentPath="/seminars/">
-  <section class="page-title-section">
-    <div class="content-narrow">
-      <h1 class="page-title">{seriesEntry.data.title}</h1>
-    </div>
-  </section>
+{seriesEntry.data.externalLink && (
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="refresh" content={`0;url=${seriesEntry.data.externalLink}`} />
+      <link rel="canonical" href={seriesEntry.data.externalLink} />
+    </head>
+    <body>
+      <p>
+        Redirecting to <a href={seriesEntry.data.externalLink}>{seriesEntry.data.externalLink}</a>...
+      </p>
+    </body>
+  </html>
+)}
 
-  <section class="section">
-    <div class="content-narrow center-note">
-      {seriesEntry.body}
-    </div>
+{!seriesEntry.data.externalLink && (
+  <BaseLayout title={seriesEntry.data.title} currentPath="/seminars/">
+    <section class="page-title-section">
+      <div class="content-narrow">
+        <h1 class="page-title">{seriesEntry.data.title}</h1>
+      </div>
+    </section>
 
-    <h2 class="section-title">Sessions</h2>
-    <div class="sessions-ordered">
-      <ol>
-        {sessions.map((session) => (
-          <li class="session-entry">
-            <h3>{session.data.week ? `${session.data.week} : ${session.data.title}` : session.data.title}</h3>
-            <p class="inline-meta">
-              <span>{session.data.speaker}</span>
-              <span>{formatLongDate(session.data.date)}</span>
-            </p>
-            <p>{session.body}</p>
-            <a class="text-button" href={`/seminars/${seriesEntry.slug}/${session.slug}/`}>Open Session</a>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-</BaseLayout>
+    <section class="section">
+      <div class="content-narrow center-note markdown-copy">
+        <SeriesContent />
+      </div>
+      <div class="sessions-ordered">
+        <ol class={isJournalClub ? "is-unstyled" : undefined}>
+          {sessions.map((session) => (
+            <li class="session-entry">
+              <h3>{!isJournalClub && session.data.week ? `${session.data.week} : ${session.data.title}` : session.data.title}</h3>
+              <p class="inline-meta">
+                <span>{session.data.speaker}</span>
+                <span>{formatLongDate(session.data.date)}</span>
+              </p>
+              <p>{getSessionPreview(session)}</p>
+              {session.data.title.trim().toUpperCase() !== "TBA" && (
+                <a class="text-button" href={`/seminars/${seriesEntry.slug}/${session.slug}/`}>Open Session</a>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  </BaseLayout>
+)}

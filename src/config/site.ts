@@ -1,6 +1,6 @@
 export const siteConfig = {
   title: "Uncertainty Quantification Lab",
-  shortTitle: "UQ Lab",
+  shortTitle: "SNUUQ",
   institution: "Department of Statistics, Seoul National University",
   description:
     "Uncertainty Quantification Lab develops statistically sound methods for quantifying uncertainty in complex mathematical models and modern machine learning systems.",
@@ -31,10 +31,10 @@ export const siteConfig = {
 };
 
 export const giscusConfig = {
-  repo: "",
-  repoId: "",
-  category: "",
-  categoryId: "",
+  repo: "snuuq/seminar-discussion",
+  repoId: "R_kgDORvchDQ",
+  category: "Seminar Comments",
+  categoryId: "DIC_kwDORvchDc4C5KvC",
   reactionsEnabled: "1",
   inputPosition: "top",
   theme: "light"

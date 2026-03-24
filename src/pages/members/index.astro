@@ -5,7 +5,12 @@ import { formatMonthYear } from "../../lib/dates";
 import MemberLinks from "../../components/MemberLinks.astro";
 import { avatarPlaceholder } from "../../lib/placeholders";
 
-const allMembers = await getCollection("members");
+const allMembers = await Promise.all(
+  (await getCollection("members")).map(async (member) => {
+    const { Content } = await member.render();
+    return { ...member, Content };
+  })
+);
 
 const parseJoined = (value: Date) => value.valueOf();
 
@@ -53,7 +58,13 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <strong>{member.data.title}</strong>, Seoul National University
               </div>
               <ul>
-                {hasBody(member) && <li>{member.body}</li>}
+                {hasBody(member) && (
+                  <li>
+                    <div class="markdown-copy compact-markdown">
+                      <member.Content />
+                    </div>
+                  </li>
+                )}
                 <li>{member.data.emailMasked}</li>
                 <li>Affiliation: Department of Statistics, Seoul National University</li>
               </ul>
@@ -85,7 +96,13 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <strong>{member.data.title}</strong>, Department of Statistics, Seoul National University (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
-                {hasBody(member) && <li>{member.body}</li>}
+                {hasBody(member) && (
+                  <li>
+                    <div class="markdown-copy compact-markdown">
+                      <member.Content />
+                    </div>
+                  </li>
+                )}
                 {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
               </ul>
             </div>
@@ -116,7 +133,13 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
-                {hasBody(member) && <li>{member.body}</li>}
+                {hasBody(member) && (
+                  <li>
+                    <div class="markdown-copy compact-markdown">
+                      <member.Content />
+                    </div>
+                  </li>
+                )}
                 {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
               </ul>
             </div>
@@ -147,7 +170,13 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
-                {hasBody(member) && <li>{member.body}</li>}
+                {hasBody(member) && (
+                  <li>
+                    <div class="markdown-copy compact-markdown">
+                      <member.Content />
+                    </div>
+                  </li>
+                )}
                 {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
               </ul>
             </div>
@@ -178,7 +207,13 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
-                {hasBody(member) && <li>{member.body}</li>}
+                {hasBody(member) && (
+                  <li>
+                    <div class="markdown-copy compact-markdown">
+                      <member.Content />
+                    </div>
+                  </li>
+                )}
                 {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
               </ul>
             </div>
@@ -206,8 +241,8 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line"><strong>{member.data.title} (since {formatMonthYear(member.data.joined)})</strong></div>
-              <div class="plain-copy">
-                {hasBody(member) && <p>{member.body}</p>}
+              <div class="plain-copy markdown-copy">
+                {hasBody(member) && <member.Content />}
                 {member.data.emailMasked && <p>{member.data.emailMasked}</p>}
               </div>
             </div>

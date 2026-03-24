@@ -87,7 +87,8 @@ const seminarSeries = defineCollection({
     title: z.string(),
     category: z.enum(["Journal Club", "Seasonal Seminar"]),
     date: z.date(),
-    sortOrder: z.enum(["asc", "desc"])
+    sortOrder: z.enum(["asc", "desc"]),
+    externalLink: z.string().url().optional()
   })
 });
 
@@ -99,7 +100,7 @@ const seminarSessions = defineCollection({
     speaker: z.string(),
     date: z.date(),
     week: z.string().optional(),
-    materials: z.string()
+    materials: z.string().optional()
   })
 });
 

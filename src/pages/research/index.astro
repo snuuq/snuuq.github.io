@@ -3,7 +3,14 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { topicPlaceholder } from "../../lib/placeholders";
 
-const topics = (await getCollection("researchTopics")).sort((a, b) => a.data.order - b.data.order);
+const topics = (
+  await Promise.all(
+    (await getCollection("researchTopics")).map(async (topic) => {
+      const { Content } = await topic.render();
+      return { ...topic, Content };
+    })
+  )
+).sort((a, b) => a.data.order - b.data.order);
 const bandClasses = ["is-blue", "is-green", "is-cream"];
 const topicAccents = ["#d8edf8", "#d9efcf", "#f0ead1", "#d8edf8", "#d9efcf"];
 const topicDescriptions = {
@@ -54,7 +61,9 @@ const topicDescriptions = {
         <h2 class="research-band-title">{topic.data.title}</h2>
         <div class={`research-band-grid ${index % 2 === 1 ? "is-reversed" : ""}`}>
           <div class="rich-copy">
-            <p>{topic.body}</p>
+            <div class="markdown-copy compact-markdown">
+              <topic.Content />
+            </div>
             <p>{topicDescriptions[topic.data.title] ?? "We pursue methods that balance statistical rigor, practical usefulness, and uncertainty-aware decision making."}</p>
 
             <h3 class="research-sublist-title">Recent themes</h3>

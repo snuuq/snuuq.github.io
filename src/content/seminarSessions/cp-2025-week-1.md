@@ -7,4 +7,4 @@ week: Week 1
 materials: "#"
 ---
 
-Placeholder overview introducing the motivation, terminology, and baseline guarantees of conformal prediction.
+Sample seasonal seminar page.
