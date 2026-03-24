@@ -22,6 +22,7 @@ const phdStudents = sortStudents(allMembers.filter((member) => member.data.role 
 const msStudents = sortStudents(allMembers.filter((member) => member.data.role === "ms"));
 const interns = sortStudents(allMembers.filter((member) => member.data.role === "intern"));
 const alumni = allMembers.filter((member) => member.data.role === "alumni");
+const hasBody = (member) => member.body && member.body.trim().length > 0;
 ---
 
 <BaseLayout title="Members" currentPath="/members/">
@@ -52,7 +53,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <strong>{member.data.title}</strong>, Seoul National University
               </div>
               <ul>
-                <li>{member.body}</li>
+                {hasBody(member) && <li>{member.body}</li>}
                 <li>{member.data.emailMasked}</li>
                 <li>Affiliation: Department of Statistics, Seoul National University</li>
               </ul>
@@ -84,7 +85,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <strong>{member.data.title}</strong>, Department of Statistics, Seoul National University (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
-                <li>{member.body}</li>
+                {hasBody(member) && <li>{member.body}</li>}
                 {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
               </ul>
             </div>
@@ -115,7 +116,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
-                <li>{member.body}</li>
+                {hasBody(member) && <li>{member.body}</li>}
                 {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
               </ul>
             </div>
@@ -146,7 +147,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
-                <li>{member.body}</li>
+                {hasBody(member) && <li>{member.body}</li>}
                 {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
               </ul>
             </div>
@@ -177,7 +178,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
                 <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
-                <li>{member.body}</li>
+                {hasBody(member) && <li>{member.body}</li>}
                 {member.data.emailMasked && <li>{member.data.emailMasked}</li>}
               </ul>
             </div>
@@ -206,7 +207,7 @@ const alumni = allMembers.filter((member) => member.data.role === "alumni");
               </div>
               <div class="member-title-line"><strong>{member.data.title} (since {formatMonthYear(member.data.joined)})</strong></div>
               <div class="plain-copy">
-                <p>{member.body}</p>
+                {hasBody(member) && <p>{member.body}</p>}
                 {member.data.emailMasked && <p>{member.data.emailMasked}</p>}
               </div>
             </div>
