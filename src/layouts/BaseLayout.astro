@@ -6,15 +6,18 @@ interface Props {
   title?: string;
   description?: string;
   currentPath?: string;
+  ogImage?: string;
 }
 
 const {
   title = siteConfig.title,
   description = siteConfig.description,
-  currentPath = Astro.url.pathname
+  currentPath = Astro.url.pathname,
+  ogImage = currentPath === "/" ? "/images/logo-blue.png" : undefined
 } = Astro.props;
 
 const pageTitle = title === siteConfig.title ? title : `${title} | ${siteConfig.title}`;
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.site ?? Astro.url).toString() : undefined;
 ---
 
 <!DOCTYPE html>
@@ -24,6 +27,14 @@ const pageTitle = title === siteConfig.title ? title : `${title} | ${siteConfig.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={currentPath === "/" ? "website" : "article"} />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
@@ -31,7 +42,7 @@ const pageTitle = title === siteConfig.title ? title : `${title} | ${siteConfig.
       <header class="site-header">
         <div class="header-inner">
           <a class="brand" href="/">
-            <img class="brand-logo" src="/favicon.svg" alt={siteConfig.shortTitle} />
+            <img class="brand-logo" src={siteConfig.headerLogo} alt={siteConfig.shortTitle} />
             <span class="brand-subtitle">{siteConfig.institution}</span>
           </a>
           <button
