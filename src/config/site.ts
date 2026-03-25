@@ -1,7 +1,7 @@
 export const siteConfig = {
   title: "Uncertainty Quantification Lab",
   shortTitle: "SNUUQ",
-  headerLogo: "/public/images/logo.png",
+  headerLogo: "/images/logo.png",
   institution: "Department of Statistics, Seoul National University",
   description:
     "Uncertainty Quantification Lab develops statistically sound methods for quantifying uncertainty in complex mathematical models and modern machine learning systems.",
