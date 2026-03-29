@@ -25,6 +25,8 @@ const { Content: SessionContent } = await sessionEntry.render();
 const seriesCollection = await getCollection("seminarSeries");
 const seriesEntry = seriesCollection.find((item) => item.slug === sessionEntry.data.series);
 const sessionDescription = firstSentence(sessionEntry.body);
+const materialsLink = sessionEntry.data.materials?.trim();
+const hasMaterials = Boolean(materialsLink && materialsLink !== "#");
 ---
 
 <BaseLayout title={sessionEntry.data.title} description={sessionDescription} currentPath="/seminars/">
@@ -49,15 +51,20 @@ const sessionDescription = firstSentence(sessionEntry.body);
         <SessionContent />
       </div>
       <div class="button-row">
-        {sessionEntry.data.materials && <a class="text-button" href={sessionEntry.data.materials}>Presentation Materials</a>}
+        {hasMaterials ? (
+          <a class="text-button" href={materialsLink}>Presentation Materials</a>
+        ) : (
+          <span class="button-note">Presentation Materials TBA</span>
+        )}
         {seriesEntry && <a class="text-button" href={`/seminars/${seriesEntry.slug}/`}>Back to Series</a>}
       </div>
     </div>
   </section>
-
+<!--
   <section class="section">
     <div class="seminar-detail">
       <GiscusComments term={sessionEntry.slug} />
     </div>
   </section>
+-->
 </BaseLayout>
