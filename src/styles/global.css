@@ -58,6 +58,9 @@ img {
 
 .site-shell {
   min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 .site-header {
@@ -176,6 +179,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 main {
+  flex: 1 0 auto;
   padding-bottom: 4.5rem;
 }
 
