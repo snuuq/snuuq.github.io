@@ -50,13 +50,13 @@ const hasMaterials = Boolean(materialsLink && materialsLink !== "#");
       <div class="plain-copy markdown-copy">
         <SessionContent />
       </div>
-      <div class="button-row">
+      <div class="button-row seminar-actions">
         {hasMaterials ? (
-          <a class="text-button" href={materialsLink}>Presentation Materials</a>
+          <a class="action-button action-button--primary" href={materialsLink}>Presentation Materials</a>
         ) : (
-          <span class="button-note">Presentation Materials TBA</span>
+          <span class="action-button action-button--disabled" aria-disabled="true">Presentation Materials TBA</span>
         )}
-        {seriesEntry && <a class="text-button" href={`/seminars/${seriesEntry.slug}/`}>Back to Series</a>}
+        {seriesEntry && <a class="action-button" href={`/seminars/${seriesEntry.slug}/`}>Back to Series</a>}
       </div>
     </div>
   </section>
