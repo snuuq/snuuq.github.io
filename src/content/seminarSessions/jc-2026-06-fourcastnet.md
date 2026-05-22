@@ -1,5 +1,5 @@
 ---
-title: FourCastNet: a weather forcasting model using Neural Operators
+title: "FourCastNet: a weather forcasting model using Neural Operators"
 series: journal-club
 speaker: Jikwang Kim
 date: 2026-06-01
