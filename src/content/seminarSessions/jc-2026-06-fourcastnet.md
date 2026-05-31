@@ -3,7 +3,7 @@ title: "FourCastNet: a weather forcasting model using Neural Operators"
 series: journal-club
 speaker: Jikwang Kim
 date: 2026-06-01
-materials: https://snuuq.slack.com/files/U09TV59S4UE/F0B75U2J9UM/fourcastnet.pdf
+materials: https://slack-files.com/T09T5RVHXKR-F0B75U2J9UM-5ddebdcd58
 ---
 
 **FourCastNet 1** casts global weather forecasting as a learned, resolution-invariant neural operator: an Adaptive Fourier Neural Operator (AFNO) with a ViT backbone, trained on ERA5 at $0.25^\circ$ and rolled out autoregressively. It replaces the costly $O(N^2)$ self-attention with an $O(N\log N)$ Fourier mixer, but its FFT implicitly assumes a flat domain and distorts at the poles, limiting stable rollouts to $\sim$25 days.
