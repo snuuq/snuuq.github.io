@@ -99,7 +99,7 @@ const seminarSessions = defineCollection({
     series: z.string(),
     speaker: z.string(),
     date: z.date(),
-    week: z.string().optional(),
+    week: z.number().int().positive().optional(),
     materials: z.string().optional()
   })
 });

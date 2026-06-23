@@ -1,9 +1,9 @@
 ---
 title: "Distillation-Based Methods & Learning Fast Generators from Scratch"
-series: summer-2026-diffusion-seminar
+series: 2026-summer-diffusion
 speaker: Dayeon Yoon
 date: 2026-08-24
-week: Week 8
+week: 8
 materials: "#"
 ---
 

@@ -1,9 +1,9 @@
 ---
 title: "Diffusion Models Today: Score SDE Framework"
-series: summer-2026-diffusion-seminar
+series: 2026-summer-diffusion
 speaker: Heejoon Byun
 date: 2026-07-20
-week: Week 3
+week: 3
 materials: "#"
 ---
 

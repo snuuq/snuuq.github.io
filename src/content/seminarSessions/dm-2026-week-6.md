@@ -1,9 +1,9 @@
 ---
 title: "Guidance and Controllable Generation"
-series: summer-2026-diffusion-seminar
+series: 2026-summer-diffusion
 speaker: Yoonseo Choi
 date: 2026-08-10
-week: Week 6
+week: 6
 materials: "#"
 ---
 

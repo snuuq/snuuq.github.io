@@ -31,7 +31,7 @@ const sessions = renderedSessions.sort((a, b) => {
       return b.data.date.valueOf() - a.data.date.valueOf();
     }
     if (a.data.week && b.data.week) {
-      return Number(a.data.week.replace(/\D+/g, "")) - Number(b.data.week.replace(/\D+/g, ""));
+      return a.data.week - b.data.week;
     }
     return a.data.date.valueOf() - b.data.date.valueOf();
   });
@@ -70,7 +70,7 @@ const hasWeekLabels = sessions.some((session) => session.data.week);
         <ol class={isJournalClub || hasWeekLabels ? "is-unstyled" : undefined}>
           {sessions.map((session) => (
             <li class="session-entry">
-              <h3>{!isJournalClub && session.data.week ? `${session.data.week} : ${session.data.title}` : session.data.title}</h3>
+              <h3>{!isJournalClub && session.data.week ? `Week ${session.data.week} : ${session.data.title}` : session.data.title}</h3>
               <p class="inline-meta">
                 <span>{session.data.speaker}</span>
                 <span>{formatLongDate(session.data.date)}</span>
@@ -79,7 +79,7 @@ const hasWeekLabels = sessions.some((session) => session.data.week);
                 <div class="session-preview markdown-copy compact-markdown" set:html={session.previewHtml} />
               )}
               {session.data.title.trim().toUpperCase() !== "TBA" && (
-                <a class="text-button" href={`/seminars/${seriesEntry.slug}/${session.slug}/`}>Open Session</a>
+                <a class="text-button" href={`/seminars/${seriesEntry.slug}/${session.data.week ?? session.slug}/`}>Open Session</a>
               )}
             </li>
           ))}

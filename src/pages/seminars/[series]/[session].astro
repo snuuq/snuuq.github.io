@@ -12,7 +12,7 @@ export async function getStaticPaths() {
     .map((entry) => ({
     params: {
       series: entry.data.series,
-      session: entry.slug
+      session: entry.data.week != null ? String(entry.data.week) : entry.slug
     },
     props: {
       sessionEntry: entry
@@ -43,7 +43,7 @@ const hasMaterials = Boolean(materialsLink && materialsLink !== "#");
           <span>{sessionEntry.data.speaker}</span>
           <span>{formatLongDate(sessionEntry.data.date)}</span>
           <span>{seriesEntry?.data.title ?? sessionEntry.data.series}</span>
-          {sessionEntry.data.week && <span>{sessionEntry.data.week}</span>}
+          {sessionEntry.data.week && <span>Week {sessionEntry.data.week}</span>}
         </span>
       </p>
       <h2 class="section-title">Overview</h2>

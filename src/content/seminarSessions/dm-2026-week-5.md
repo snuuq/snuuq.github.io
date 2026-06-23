@@ -1,9 +1,9 @@
 ---
 title: "A Unified and Systematic Lens on Diffusion Models"
-series: summer-2026-diffusion-seminar
+series: 2026-summer-diffusion
 speaker: Sungwoo Park
 date: 2026-08-03
-week: Week 5
+week: 5
 materials: "#"
 ---
 

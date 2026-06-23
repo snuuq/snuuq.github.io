@@ -1,9 +1,9 @@
 ---
 title: "Flow-Based Perspective: From NFs to Flow Matching"
-series: summer-2026-diffusion-seminar
+series: 2026-summer-diffusion
 speaker: Gunwoo Cho
 date: 2026-07-27
-week: Week 4
+week: 4
 materials: "#"
 ---
 

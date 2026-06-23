@@ -1,9 +1,9 @@
 ---
 title: "Score-Based Perspective: From EBMs to NCSN"
-series: summer-2026-diffusion-seminar
+series: 2026-summer-diffusion
 speaker: Kyeongtae Ko
 date: 2026-07-13
-week: Week 2
+week: 2
 materials: "#"
 ---
 

@@ -1,9 +1,9 @@
 ---
 title: "Sophisticated Solvers for Fast Sampling"
-series: summer-2026-diffusion-seminar
+series: 2026-summer-diffusion
 speaker: Jikwang Kim
 date: 2026-08-17
-week: Week 7
+week: 7
 materials: "#"
 ---
 
