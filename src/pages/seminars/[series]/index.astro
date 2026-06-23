@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { formatLongDate } from "../../../lib/dates";
+import { getFirstRenderedBlock, truncateRenderedBlockToFirstSentence } from "../../../lib/htmlPreview";
 
 export async function getStaticPaths() {
   const series = await getCollection("seminarSeries");
@@ -15,62 +16,6 @@ const { seriesEntry } = Astro.props;
 const { Content: SeriesContent } = await seriesEntry.render();
 const allSessions = await getCollection("seminarSessions");
 const seminarSessionModules = import.meta.glob<{ compiledContent: () => Promise<string> }>("../../../content/seminarSessions/*.md");
-const voidTags = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]);
-const getFirstRenderedBlock = (html: string) => {
-  const firstParagraph = html.match(/<p\b[^>]*>[\s\S]*?<\/p>/i);
-  if (firstParagraph) return firstParagraph[0];
-
-  const firstBlock = html.match(/<(ul|ol|blockquote|pre|table)\b[^>]*>[\s\S]*?<\/\1>/i);
-  return firstBlock ? firstBlock[0] : html;
-};
-const truncateInlineHtmlToFirstSentence = (html: string) => {
-  const tokens = html.match(/<[^>]+>|[^<]+/g) ?? [];
-  const openTags: string[] = [];
-  let output = "";
-
-  for (const token of tokens) {
-    if (token.startsWith("<")) {
-      output += token;
-
-      const closingTag = token.match(/^<\/\s*([a-z0-9-]+)/i);
-      if (closingTag) {
-        const tagName = closingTag[1].toLowerCase();
-        const tagIndex = openTags.lastIndexOf(tagName);
-        if (tagIndex >= 0) openTags.splice(tagIndex, 1);
-        continue;
-      }
-
-      const openingTag = token.match(/^<\s*([a-z0-9-]+)/i);
-      if (!openingTag || token.endsWith("/>")) continue;
-
-      const tagName = openingTag[1].toLowerCase();
-      if (!voidTags.has(tagName) && !token.startsWith("<!") && !token.startsWith("<?")) {
-        openTags.push(tagName);
-      }
-      continue;
-    }
-
-    const firstSentence = token.match(/[\s\S]*?[.!?](?=\s|$)/);
-    if (!firstSentence) {
-      output += token;
-      continue;
-    }
-
-    output += firstSentence[0];
-    return `${output}${openTags.slice().reverse().map((tagName) => `</${tagName}>`).join("")}`;
-  }
-
-  return html;
-};
-const truncateRenderedBlockToFirstSentence = (html: string) => {
-  const trimmed = html.trim();
-  const paragraphMatch = trimmed.match(/^<p\b([^>]*)>([\s\S]*?)<\/p>$/i);
-  if (!paragraphMatch) return trimmed;
-
-  const attributes = paragraphMatch[1];
-  const innerHtml = paragraphMatch[2];
-  return `<p${attributes}>${truncateInlineHtmlToFirstSentence(innerHtml)}</p>`;
-};
 const renderedSessions = await Promise.all(
   allSessions
     .filter((item) => item.data.series === seriesEntry.slug)
@@ -91,6 +36,7 @@ const sessions = renderedSessions.sort((a, b) => {
     return a.data.date.valueOf() - b.data.date.valueOf();
   });
 const isJournalClub = seriesEntry.slug === "journal-club";
+const hasWeekLabels = sessions.some((session) => session.data.week);
 ---
 
 {seriesEntry.data.externalLink && (
@@ -121,7 +67,7 @@ const isJournalClub = seriesEntry.slug === "journal-club";
         <SeriesContent />
       </div>
       <div class="sessions-ordered">
-        <ol class={isJournalClub ? "is-unstyled" : undefined}>
+        <ol class={isJournalClub || hasWeekLabels ? "is-unstyled" : undefined}>
           {sessions.map((session) => (
             <li class="session-entry">
               <h3>{!isJournalClub && session.data.week ? `${session.data.week} : ${session.data.title}` : session.data.title}</h3>

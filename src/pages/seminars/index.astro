@@ -2,17 +2,25 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatLongDate } from "../../lib/dates";
-import { firstSentence } from "../../lib/text";
+import { getFirstRenderedBlock, truncateRenderedBlockToFirstSentence } from "../../lib/htmlPreview";
 
 const series = await getCollection("seminarSeries");
 const pages = await getCollection("pages");
 const seminarsPage = pages.find((item) => item.slug === "seminars");
 const seminarsPageRender = seminarsPage ? await seminarsPage.render() : null;
 const SeminarsPageContent = seminarsPageRender?.Content;
+const seminarSeriesModules = import.meta.glob<{ compiledContent: () => Promise<string> }>("../../content/seminarSeries/*.md");
+const toInlinePreview = (html: string) =>
+  truncateRenderedBlockToFirstSentence(getFirstRenderedBlock(html))
+    .replace(/^<p\b[^>]*>/i, "")
+    .replace(/<\/p>\s*$/i, "");
 const renderedSeries = await Promise.all(
   series.map(async (item) => {
     const { Content } = await item.render();
-    return { ...item, Content };
+    const modulePath = Object.keys(seminarSeriesModules).find((path) => path.endsWith(`/${item.slug}.md`));
+    const module = modulePath ? await seminarSeriesModules[modulePath]() : null;
+    const previewHtml = module ? toInlinePreview(await module.compiledContent()) : "";
+    return { ...item, Content, previewHtml };
   })
 );
 const journalClub = renderedSeries.find((item) => item.slug === "journal-club");
@@ -20,7 +28,6 @@ const seasonal = renderedSeries
   .filter((item) => item.slug !== "journal-club")
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const getSeriesHref = (item) => item.data.externalLink ?? `/seminars/${item.slug}/`;
-const getSeriesPreview = (item) => firstSentence(item.body);
 ---
 
 <BaseLayout title="Seminars" currentPath="/seminars/">
@@ -45,7 +52,7 @@ const getSeriesPreview = (item) => firstSentence(item.body);
         <div class="seminar-series-list">
           <article class="seminar-series-card">
             <h3>{journalClub.data.title}</h3>
-            <p>{getSeriesPreview(journalClub)}</p>
+            <p set:html={journalClub.previewHtml} />
             <a
               class="text-button"
               href={getSeriesHref(journalClub)}
@@ -66,7 +73,7 @@ const getSeriesPreview = (item) => firstSentence(item.body);
       {seasonal.map((item) => (
         <article class="seminar-series-card">
           <h3>{item.data.title}</h3>
-          <p>{getSeriesPreview(item)}</p>
+          <p set:html={item.previewHtml} />
           <a
             class="text-button"
             href={getSeriesHref(item)}
