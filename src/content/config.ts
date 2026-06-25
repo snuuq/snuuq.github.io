@@ -14,12 +14,18 @@ const members = defineCollection({
   schema: z.object({
     nameKo: z.string(),
     nameEn: z.string(),
-    role: z.enum(["professor", "postdoc", "phd", "ms", "intern", "alumni"]),
-    title: z.string(),
+    role: z.enum(["professor", "postdoc", "phd", "ms", "intern"]),
+    title: z.string().optional(),
     emailMasked: z.string().optional(),
     joined: z.date(),
     photo: z.string().optional(),
     photoAlt: z.string().optional(),
+    alumni: z
+      .object({
+        ended: z.date(),
+        destination: z.string().optional()
+      })
+      .optional(),
     links: z
       .object({
         homepage: z.string().url().optional(),

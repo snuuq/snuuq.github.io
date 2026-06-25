@@ -980,6 +980,13 @@ main {
     grid-template-columns: 1fr;
   }
 
+  .faculty-member .member-photo,
+  .postdoc-member .member-photo,
+  .member-grid-card .member-photo,
+  .alumni-card .member-photo {
+    padding-inline: max(1rem, calc((100vw - 282px) / 2));
+  }
+
   .header-inner {
     position: relative;
     align-items: center;

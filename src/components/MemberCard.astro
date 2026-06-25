@@ -7,6 +7,14 @@ interface Props {
 }
 
 const { member } = Astro.props;
+const roleTitleMap = {
+  professor: "Professor",
+  postdoc: "Postdoc Fellow",
+  phd: "Ph.D. Student",
+  ms: "M.S. Student",
+  intern: "Intern"
+};
+const memberTitle = member.data.title ?? roleTitleMap[member.data.role];
 ---
 
 <article class="member-card">
@@ -14,7 +22,7 @@ const { member } = Astro.props;
     <img src={avatarPlaceholder(member.data.nameEn)} alt={member.data.photoAlt ?? `Placeholder profile image for ${member.data.nameEn}`} />
   </div>
   <h3>{member.data.nameEn}</h3>
-  <p class="muted">{member.data.nameKo} · {member.data.title}</p>
+  <p class="muted">{member.data.nameKo} · {memberTitle}</p>
   <div class="member-copy">
     <slot />
   </div>

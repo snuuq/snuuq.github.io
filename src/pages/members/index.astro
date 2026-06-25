@@ -21,12 +21,60 @@ const sortStudents = (members) =>
     return a.data.nameEn.localeCompare(b.data.nameEn);
   });
 
-const faculty = allMembers.filter((member) => member.data.role === "professor");
-const postdocs = allMembers.filter((member) => member.data.role === "postdoc");
-const phdStudents = sortStudents(allMembers.filter((member) => member.data.role === "phd"));
-const msStudents = sortStudents(allMembers.filter((member) => member.data.role === "ms"));
-const interns = sortStudents(allMembers.filter((member) => member.data.role === "intern"));
-const alumni = allMembers.filter((member) => member.data.role === "alumni");
+const roleTitleMap = {
+  professor: "Professor",
+  postdoc: "Postdoc Fellow",
+  phd: "Ph.D. Student",
+  ms: "M.S. Student",
+  intern: "Intern"
+};
+
+const alumniTitleMap = {
+  postdoc: "Postdoc Fellow",
+  phd: "Ph.D.",
+  ms: "M.S.",
+  intern: "Intern"
+};
+
+const alumniRoleRank = {
+  postdoc: 0,
+  phd: 1,
+  ms: 2,
+  intern: 3,
+  professor: 4
+};
+
+const memberTitle = (member) => member.data.title ?? roleTitleMap[member.data.role];
+
+const formatYear = (date: Date) => date.toLocaleDateString("en-US", { year: "numeric" });
+
+const sortAlumni = (members) =>
+  [...members].sort((a, b) => {
+    const roleDiff = alumniRoleRank[a.data.role] - alumniRoleRank[b.data.role];
+    if (roleDiff !== 0) return roleDiff;
+
+    const endedDiff = a.data.alumni.ended.valueOf() - b.data.alumni.ended.valueOf();
+    if (endedDiff !== 0) return endedDiff;
+
+    return a.data.nameEn.localeCompare(b.data.nameEn);
+  });
+
+const alumniSummary = (member) => {
+  const title = alumniTitleMap[member.data.role] ?? memberTitle(member);
+  if (member.data.role === "ms" || member.data.role === "phd") {
+    return `${title} (${formatMonthYear(member.data.alumni.ended)})`;
+  }
+
+  return `${title} (${formatYear(member.data.joined)}-${formatYear(member.data.alumni.ended)})`;
+};
+
+const currentMembers = allMembers.filter((member) => !member.data.alumni);
+const faculty = currentMembers.filter((member) => member.data.role === "professor");
+const postdocs = currentMembers.filter((member) => member.data.role === "postdoc");
+const phdStudents = sortStudents(currentMembers.filter((member) => member.data.role === "phd"));
+const msStudents = sortStudents(currentMembers.filter((member) => member.data.role === "ms"));
+const interns = sortStudents(currentMembers.filter((member) => member.data.role === "intern"));
+const alumni = sortAlumni(allMembers.filter((member) => member.data.alumni));
 const hasBody = (member) => member.body && member.body.trim().length > 0;
 ---
 
@@ -55,7 +103,7 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong>, Seoul National University
+                <strong>{memberTitle(member)}</strong>, Seoul National University
               </div>
               <ul>
                 {hasBody(member) && (
@@ -93,7 +141,7 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong>, Department of Statistics, Seoul National University (since {formatMonthYear(member.data.joined)})
+                <strong>{memberTitle(member)}</strong>, Department of Statistics, Seoul National University (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
                 {hasBody(member) && (
@@ -130,7 +178,7 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
+                <strong>{memberTitle(member)}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
                 {hasBody(member) && (
@@ -167,7 +215,7 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
+                <strong>{memberTitle(member)}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
                 {hasBody(member) && (
@@ -204,7 +252,7 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <MemberLinks links={member.data.links} />
               </div>
               <div class="member-title-line">
-                <strong>{member.data.title}</strong> (since {formatMonthYear(member.data.joined)})
+                <strong>{memberTitle(member)}</strong> (since {formatMonthYear(member.data.joined)})
               </div>
               <ul>
                 {hasBody(member) && (
@@ -225,7 +273,7 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
 
   {alumni.length > 0 && (
     <section class="members-section">
-      <h2 class="member-role-title">Permanent Members</h2>
+      <h2 class="member-role-title">Alumni</h2>
       <div class="alumni-grid">
         {alumni.map((member) => (
           <article class="alumni-card">
@@ -240,10 +288,14 @@ const hasBody = (member) => member.body && member.body.trim().length > 0;
                 <h3 class="member-name">{member.data.nameEn}</h3>
                 <MemberLinks links={member.data.links} />
               </div>
-              <div class="member-title-line"><strong>{member.data.title} (since {formatMonthYear(member.data.joined)})</strong></div>
+              <div class="member-title-line"><strong>{alumniSummary(member)}</strong></div>
               <div class="plain-copy markdown-copy">
                 {hasBody(member) && <member.Content />}
-                {member.data.emailMasked && <p>{member.data.emailMasked}</p>}
+                {member.data.alumni?.destination && (
+                  <p class="alumni-destination">
+                    @{member.data.alumni.destination}
+                  </p>
+                )}
               </div>
             </div>
           </article>
