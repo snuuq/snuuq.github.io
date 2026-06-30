@@ -1,7 +1,7 @@
 ---
 title: "Score-Based Perspective: From EBMs to NCSN"
 series: 2026-summer-diffusion
-speaker: Kyeongtae Ko
+speaker: Heejoon Byun
 date: 2026-07-13
 week: 2
 materials: "#"
