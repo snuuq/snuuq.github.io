@@ -1,7 +1,7 @@
 ---
 title: "Diffusion Models Today: Score SDE Framework"
 series: 2026-summer-diffusion
-speaker: Heejoon Byun
+speaker: Kyeongtae Ko
 date: 2026-07-20
 week: 3
 materials: "#"
