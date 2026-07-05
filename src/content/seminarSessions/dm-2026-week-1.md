@@ -2,7 +2,7 @@
 title: "Variational Perspective: From VAEs to DDPMs"
 series: 2026-summer-diffusion
 speaker: Myeonggeum Ko
-date: 2026-07-06
+date: 2026-07-13
 week: 1
 materials: "#"
 ---

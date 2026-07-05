@@ -2,7 +2,7 @@
 title: "Diffusion Models Today: Score SDE Framework"
 series: 2026-summer-diffusion
 speaker: Kyeongtae Ko
-date: 2026-07-20
+date: 2026-07-27
 week: 3
 materials: "#"
 ---
