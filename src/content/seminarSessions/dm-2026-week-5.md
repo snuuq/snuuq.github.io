@@ -4,7 +4,7 @@ series: 2026-summer-diffusion
 speaker: Sungwoo Park
 date: 2026-08-10
 week: 5
-materials: "#"
+materials: "https://slack-files.com/T09T5RVHXKR-F0BPZ5MDUKS-9dc530904d"
 ---
 
 This chapter brings the variational, score-based, and flow-based perspectives together, showing how they share a common backbone and are largely equivalent. It lays out a roadmap for elucidating training losses, the conditional tricks behind diffusion models, and the role of the Fokker–Planck equation beneath it all.
