@@ -711,11 +711,26 @@ main {
   row-gap: 2.5rem;
 }
 
+.member-grid-section.is-three-up {
+  width: min(calc(100% - 2rem), 1280px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.4rem 2rem;
+}
+
 .member-grid-card {
   display: grid;
   grid-template-columns: 240px 1fr;
   gap: 1.4rem;
   align-items: start;
+}
+
+.is-three-up .member-grid-card {
+  grid-template-columns: 156px 1fr;
+  gap: 1rem;
+}
+
+.is-three-up .member-grid-card .member-photo img {
+  aspect-ratio: 0.84 / 1;
 }
 
 .member-grid-card .member-photo img {
@@ -953,6 +968,7 @@ main {
   .research-band-grid,
   .research-band-grid.is-reversed,
   .member-grid-section,
+  .member-grid-section.is-three-up,
   .alumni-grid,
   .gallery-grid {
     grid-template-columns: 1fr;
@@ -963,6 +979,7 @@ main {
   }
 
   .member-grid-card,
+  .is-three-up .member-grid-card,
   .faculty-member,
   .postdoc-member,
   .alumni-card {
@@ -976,6 +993,7 @@ main {
   .faculty-member,
   .postdoc-member,
   .member-grid-card,
+  .is-three-up .member-grid-card,
   .alumni-card {
     grid-template-columns: 1fr;
   }
