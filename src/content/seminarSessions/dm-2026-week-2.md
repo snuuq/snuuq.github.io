@@ -4,7 +4,7 @@ series: 2026-summer-diffusion
 speaker: Dayeon Yoon
 date: 2026-07-20
 week: 2
-materials: "#"
+materials: "https://slack-files.com/T09T5RVHXKR-F0BJHHKBNCC-3105fbb0d5"
 ---
 
 This chapter traces the score-based view of generative modeling, moving from energy-based models (EBMs) to score-based generative models. It introduces denoising score matching and the use of multiple noise levels (NCSN), and closes with a comparative view of NCSN and DDPM.
