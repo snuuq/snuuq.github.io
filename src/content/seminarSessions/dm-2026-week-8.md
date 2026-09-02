@@ -4,7 +4,7 @@ series: 2026-summer-diffusion
 speaker: Kyeongtae Ko
 date: 2026-08-31
 week: 8
-materials: "#"
+materials: "https://slack-files.com/T09T5RVHXKR-F0BTAT53LH5-cc65384175"
 ---
 
 This session covers two complementary routes toward fast diffusion-based generators. The first distills a pretrained diffusion model into a few-step sampler through distribution-based and progressive distillation. The second learns fast generators from scratch, building up consistency models in discrete and continuous time, consistency trajectory models, and mean flow.
