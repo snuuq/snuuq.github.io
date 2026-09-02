@@ -4,7 +4,7 @@ series: 2026-summer-diffusion
 speaker: Myeonggeum Ko
 date: 2026-07-13
 week: 1
-materials: "#"
+materials: "https://slack-files.com/T09T5RVHXKR-F0BGPH8KG0K-f00e75208b"
 ---
 
 This chapter develops the variational view of diffusion models, beginning with the variational autoencoder (VAE) and building up to the denoising diffusion probabilistic model (DDPM). It shows how a hierarchy of latent-variable models with a fixed forward corruption process leads to the step-by-step denoising objective at the heart of DDPM.
